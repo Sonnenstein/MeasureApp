@@ -7,6 +7,16 @@ var alpha = 0.0;
 var beta = 0.0;
 var gamma = 0.0;
 
+if (window.DeviceMotionEvent) {
+  console.log("DeviceMotionEvent supported");
+} 
+
+if ((window.DeviceMotionEvent) {
+  window.addEventListener('devicemotion', deviceMotionHandler, false);
+} else {
+  document.getElementById("dmEvent").innerHTML = "Not supported."
+}
+
 function startMeasurement() {
 
 	if (Math.abs(beta) < 2.0 && Math.abs(gamma) < 2.0) {
@@ -16,8 +26,7 @@ function startMeasurement() {
 }
 
 
-window.ondevicemotion = function(event) { 
-
+function deviceMotionHandler(event) {
 	var ax = event.acceleration.x;
 	var ay = event.acceleration.y;
 	var az = event.acceleration.z;
@@ -34,9 +43,10 @@ window.ondevicemotion = function(event) {
 		lastTime = Math.floor(clock);
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
 		tick = 0;
-	}
-	
+	}    
 }
+
+
 
 
 
