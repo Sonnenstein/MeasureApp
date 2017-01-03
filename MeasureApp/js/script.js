@@ -1,11 +1,11 @@
-var clock = 0;
+var clock = 0.0;
 var task_start = performance.now();
 var tick = 0;
-var lastTime = 0;
+var lastTime = 0.0;
 
-var alpha;
-var beta;
-var gamma;
+var alpha = 0.0;
+var beta = 0.0;
+var gamma = 0.0;
 
 function startMeasurement() {
 
@@ -18,20 +18,13 @@ function startMeasurement() {
 
 window.ondevicemotion = function(event) { 
 
-	var ax = event.acceleration.x;
-	var ay = event.acceleration.y;
-	var az = event.acceleration.z;
+	var ax = event.accelerationIncludingGravity.x;
+	var ay = event.accelerationIncludingGravity.y;
+	var az = event.accelerationIncludingGravity.z;
 
-	
-	var rotation = event.rotationRate;
-	alpha = rotation.alpha;
-	beta = rotation.beta;
-	gamma = rotation.gamma;
 
 	clock = performance.now() - task_start;
-	
 	tick = tick + 1;
-	
 	
 	document.querySelector("#x_acc").innerHTML = "X = " + ax;
 	document.querySelector("#y_acc").innerHTML = "Y = " + ay;
