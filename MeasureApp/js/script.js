@@ -7,14 +7,6 @@ var alpha = 0.0;
 var beta = 0.0;
 var gamma = 0.0;
 
-if (window.DeviceMotionEvent) {
-  console.log("DeviceMotionEvent supported");
-} 
-
-if (window.DeviceMotionEvent) {
-  window.addEventListener('devicemotion', deviceMotionHandler, false);
-}
-
 function startMeasurement() {
 
 	if (Math.abs(beta) < 2.0 && Math.abs(gamma) < 2.0) {
@@ -24,12 +16,13 @@ function startMeasurement() {
 }
 
 
-function deviceMotionHandler(event) {
+window.ondevicemotion = function(event) { 
 	var ax = event.acceleration.x;
 	var ay = event.acceleration.y;
 	var az = event.acceleration.z;
 
-
+	window.alert(ax);
+	
 	clock = performance.now() - task_start;
 	tick = tick + 1;
 	
