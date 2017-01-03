@@ -1,11 +1,12 @@
 var clock = 0;
+var task_start = performance.now();
 
 window.ondevicemotion = function(event) { 
 	var ax = event.accelerationIncludingGravity.x;
 	var ay = event.accelerationIncludingGravity.y;
 	var az = event.accelerationIncludingGravity.z;
 
-	clock = clock + 1;
+	clock = performance.now() - task_start;
 	
 	document.querySelector("#x_acc").innerHTML = "X = " + ax;
 	document.querySelector("#y_acc").innerHTML = "Y = " + ay;
