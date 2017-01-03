@@ -18,7 +18,7 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#y_acc").innerHTML = "Y = " + ay;
 	document.querySelector("#z_acc").innerHTML = "Z = " + az;
 	document.querySelector("#clock_acc").innerHTML = "Clock = " + clock;
-	if (clock - lastTime >= 1.0) {
+	if (clock - lastTime >= 1000.0) {
 		lastTime = Math.floor(clock);
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
 		tick = 0;
