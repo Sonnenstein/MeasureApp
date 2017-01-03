@@ -11,10 +11,8 @@ if (window.DeviceMotionEvent) {
   console.log("DeviceMotionEvent supported");
 } 
 
-if ((window.DeviceMotionEvent) {
+if (window.DeviceMotionEvent) {
   window.addEventListener('devicemotion', deviceMotionHandler, false);
-} else {
-  document.getElementById("dmEvent").innerHTML = "Not supported."
 }
 
 function startMeasurement() {
