@@ -2,13 +2,37 @@ var clock = 0;
 var task_start = performance.now();
 var tick = 0;
 var lastTime = 0;
+document.querySelector("#dist_acc").innerHTML = "Unbalanced";
+
+function startMeasurement() {
+	
+	var rotation = eventData.rotationRate;
+	var alpha = rotation.alpha;
+	var beta = rotation.beta;
+	var gamma = rotation.gamma;
+
+	beta = 0.0;
+	gamma = 0.0;
+	
+	if (Math.abs(beta) < 2.0 && Math.abs(gamma) < 2.0) {
+		document.querySelector("#dist_acc").innerHTML = "Balanced";
+		document.querySelector("#dist_acc").text-color = "green";
+	}
+}
+
 
 window.ondevicemotion = function(event) { 
+
 	var ax = event.accelerationIncludingGravity.x;
 	var ay = event.accelerationIncludingGravity.y;
 	var az = event.accelerationIncludingGravity.z;
 
 	
+	var rotation = eventData.rotationRate;
+	var alpha = rotation.alpha;
+	var beta = rotation.beta;
+	var gamma = rotation.gamma;
+
 	clock = performance.now() - task_start;
 	
 	tick = tick + 1;
@@ -23,11 +47,9 @@ window.ondevicemotion = function(event) {
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
 		tick = 0;
 	}
+	
 }
 
-window.addEventListener("deviceorientation", function(event) {
-	document.querySelector("#mag_alpha").innerHTML = "alpha = " + event.alpha;
-	document.querySelector("#mag_beta").innerHTML = "beta = " + event.beta;
-	document.querySelector("#mag_gamma").innerHTML = "gamma = " + event.gamma;
-}, true);
+
+
 
