@@ -21,8 +21,6 @@ window.ondevicemotion = function(event) {
 	var ax = acceleration.x;
 	var ay = acceleration.y;
 	var az = acceleration.z;
-
-	window.alert(ax);
 	
 	clock = performance.now() - task_start;
 	tick = tick + 1;
