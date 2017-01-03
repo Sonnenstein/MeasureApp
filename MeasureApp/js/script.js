@@ -2,36 +2,31 @@ var clock = 0;
 var task_start = performance.now();
 var tick = 0;
 var lastTime = 0;
-document.querySelector("#dist_acc").innerHTML = "Unbalanced";
+
+var alpha;
+var beta;
+var gamma;
 
 function startMeasurement() {
-	
-	var rotation = eventData.rotationRate;
-	var alpha = rotation.alpha;
-	var beta = rotation.beta;
-	var gamma = rotation.gamma;
 
-	beta = 0.0;
-	gamma = 0.0;
-	
 	if (Math.abs(beta) < 2.0 && Math.abs(gamma) < 2.0) {
 		document.querySelector("#dist_acc").innerHTML = "Balanced";
-		document.querySelector("#dist_acc").text-color = "green";
+		document.querySelector("#dist_acc").style.backgroundColor = 'green';
 	}
 }
 
 
 window.ondevicemotion = function(event) { 
 
-	var ax = event.accelerationIncludingGravity.x;
-	var ay = event.accelerationIncludingGravity.y;
-	var az = event.accelerationIncludingGravity.z;
+	var ax = event.acceleration.x;
+	var ay = event.acceleration.y;
+	var az = event.acceleration.z;
 
 	
-	var rotation = eventData.rotationRate;
-	var alpha = rotation.alpha;
-	var beta = rotation.beta;
-	var gamma = rotation.gamma;
+	var rotation = event.rotationRate;
+	alpha = rotation.alpha;
+	beta = rotation.beta;
+	gamma = rotation.gamma;
 
 	clock = performance.now() - task_start;
 	
