@@ -22,10 +22,15 @@ window.ondevicemotion = function(event) {
 	var ay = acceleration.y;
 	var az = acceleration.z;
 	
+	var rotation = event.rotationRate;
+	alpha = rotation.alpha;
+	beta = rotation.beta;
+	gamma = rotation.gamma;
+	
 	clock = performance.now() - task_start;
 	tick = tick + 1;
 	
-	document.querySelector("#x_acc").innerHTML = "X = " + ax;
+	document.querySelector("#x_acc").innerHTML = "X = " + alpha;
 	document.querySelector("#y_acc").innerHTML = "Y = " + ay;
 	document.querySelector("#z_acc").innerHTML = "Z = " + az;
 	document.querySelector("#clock_acc").innerHTML = "Clock = " + clock;
