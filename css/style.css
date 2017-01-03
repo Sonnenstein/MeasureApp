@@ -1,0 +1,63 @@
+
+header {
+	height: 30px;
+	width: 100%;
+	background-color: #0000FF;
+}
+
+body {
+	/* X.Xem: X.X times the current font size */
+	font-size: 1.0em;
+	margin: 40px;
+	padding: 20px;
+	background-color: #DDEEFF;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+footer {
+	height: 100px;
+	/* Place one row of text vertically centered*/
+	line-height: 100px;
+	width: 100%;
+	background-color: #222222;
+	color: #FFFFFF;
+}
+
+/* example for an id, which can only be used once*/
+#hugeText {
+	font-family: "Arial Black";
+	font-size: 3.0em;
+	font-weight: bold;
+}
+
+/* example for a class - can be used for multible objects */
+.blueFont {
+	font-size: 18px;
+	color: #0000FF;
+}
+
+h1 {
+	font-size: 1.6em;
+	color: white;
+}
+
+table {
+	font-size: 1.6em;
+	border: 8px solid grey;
+	border-spacing: 20px;
+	width: 400px;
+	height: 300px;
+	margin: 0 auto;
+}
+
+td {
+	border: 4px solid grey;
+	padding: 10px;
+}
+
+a {
+	color: red;
+}
