@@ -46,8 +46,7 @@ function startMeasurement() {
 		document.querySelector("#dist_acc").innerHTML = "Number of Measurements: " + data.length;
 		document.querySelector("#dist_acc").style.backgroundColor = 'orange';
 		
-		var zDistance = 23.0;
-		// calculateDistance(data); 
+		var zDistance = calculateDistance(data); 
 		document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + zDistance;
 	}
 }
@@ -109,6 +108,12 @@ window.ondevicemotion = function(event) {
 function calculateDistance(data) {
     var speed = [];
 	speed.push(0.0);
+		
+	var sum = 0;
+	for (var i = 0; i < data.length) {
+		sum = sum + data[i]["az"];
+	}
+	return sum;
 		
 	for (var i = 1; i < data.length; i++) { // simple trapez rule
 		var interval = (data[i]["time"] - data[i - 1]["time"]);
