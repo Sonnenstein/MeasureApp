@@ -27,10 +27,27 @@ function startMeasurement() {
 	} else {
 		measurementActive = false;
 
+		/*
+		// Test data
+		for(var i = 0; i < 5; i++) {
+			var newItem = [];
+			newItem["ax"] = 1.0;
+			newItem["ay"] = 1.0;
+			newItem["az"] = 1.0;
+			newItem["alpha"] = 0;
+			newItem["beta"] = 0;
+			newItem["gamma"] = 0;
+			newItem["time"] = i;
+			
+			data.push(newItem);
+		}
+		*/
+		
 		document.querySelector("#dist_acc").innerHTML = "Number of Measurements: " + data.length;
 		document.querySelector("#dist_acc").style.backgroundColor = 'orange';
 		
-		var zDistance = calculateDistance(data); 
+		var zDistance = 23.0;
+		// calculateDistance(data); 
 		document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + zDistance;
 	}
 }
@@ -96,7 +113,7 @@ function calculateDistance(data) {
 	for (var i = 1; i < data.length; i++) { // simple trapez rule
 		var interval = (data[i]["time"] - data[i - 1]["time"]);
 		var avgAcceleration = (data[i]["az"] + data[i - 1]["az"]) / 2.0 - cZ;
-		var newSpeed = speed[i - 1] + acceleration * interval;
+		var newSpeed = speed[i - 1] + avgAcceleration * interval;
 		speed.push(newSpeed);
 	}             
 	
