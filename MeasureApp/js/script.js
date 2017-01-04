@@ -7,6 +7,10 @@ var alpha = 0.0;
 var beta = 0.0;
 var gamma = 0.0;
 
+var cX = 0.0;
+var cY = 0.0;
+var cZ = 0.0;
+
 var measurementActive = false;
 var data = [];
 
@@ -21,14 +25,18 @@ function startMeasurement() {
 			measurementActive = true;
 		}
 	} else {
-		document.querySelector("#dist_acc").innerHTML = "Measurements: " + data.length;
-		document.querySelector("#dist_acc").style.backgroundColor = 'orange';
 		measurementActive = false;
+
+		document.querySelector("#dist_acc").innerHTML = "Number of Measurements: " + data.length;
+		document.querySelector("#dist_acc").style.backgroundColor = 'orange';
 		
+		zDistance = calculateDistance(data); 
+		document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + zDistance;
 	}
 }
 
 
+// measurement routine
 window.ondevicemotion = function(event) { 
 	var accelerationIncludingGravity = event.accelerationIncludingGravity;
 	var ax = accelerationIncludingGravity.x;
@@ -36,14 +44,15 @@ window.ondevicemotion = function(event) {
 	var az = accelerationIncludingGravity.z;
 	
 	var rotation = event.rotationRate;
-	var alpha = rotation.alpha;
-	var beta = rotation.beta;
-	var gamma = rotation.gamma;
+	alpha = rotation.alpha;
+	beta = rotation.beta;
+	gamma = rotation.gamma;
 	
-	
-	// record data
-	if(measurementActive) {
+	if(measurementActive) { // record data
 		if (task_start = 0) {
+			cX = ax;
+			cY = ay;
+			cZ = az;
 			task_start = performance.now();
 		}
 	
@@ -59,11 +68,16 @@ window.ondevicemotion = function(event) {
 		data.push(newItem);
 	}
 
+	time = performance.now() - task_start;
 	
 	document.querySelector("#x_acc").innerHTML = "X = " + ax;
 	document.querySelector("#y_acc").innerHTML = "Y = " + ay;
 	document.querySelector("#z_acc").innerHTML = "Z = " + az;
 	document.querySelector("#time_acc").innerHTML = "Time = " + time;
+	
+	document.querySelector("#mag_alpha").innerHTML = "alpha = " + alpha;
+	document.querySelector("#mag_beta").innerHTML = "beta = " + beta;
+	document.querySelector("#mag_gamma").innerHTML = "gamma = " + gamma;
 	
 	// measurements per second
 	tick = tick + 1;
@@ -74,13 +88,26 @@ window.ondevicemotion = function(event) {
 	}    
 }
 
-window.addEventListener("deviceorientation", function(event) {
-	document.querySelector("#mag_alpha").innerHTML = "alpha = " + event.alpha;
-	document.querySelector("#mag_beta").innerHTML = "beta = " + event.beta;
-	document.querySelector("#mag_gamma").innerHTML = "gamma = " + event.gamma;
-}, true);
-
-
+// trial for z distance
+function calculateDistance(data) {
+    var speed = [];
+	speed.push(0.0);
+		
+	for (var i = 1; i < data.length; i++) { // simple trapez rule
+		var interval = (data[i]["time"] - data[i - 1]["time"]);
+		var acceleration = (data[i]["az"] + data[i - 1]["az"]) / 2.0 - cZ;
+		var newSpeed = speed[i - 1] + interval * acceleration;
+	}             
+	
+	var dist = 0.0;
+	for (var i = 1; i < speed.length; i++) {
+		var interval = (data[i]["time"] - data[i - 1]["time"]);
+		var avgSpeed = (speed[i - 1] + speed[i]) / 2.0;
+		dist = dist + avgSpeed * interval;
+	}
+	
+	return dist;
+}
 
 
 
