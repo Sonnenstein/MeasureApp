@@ -19,10 +19,10 @@ function startMeasurement() {
 window.ondevicemotion = function(event) { 
 	alert(event.acceleration.x);
 
-	var acceleration = event.acceleration;
-	var ax = acceleration.x;
-	var ay = acceleration.y;
-	var az = acceleration.z;
+	var accelerationIncludingGravity = event.accelerationIncludingGravity;
+	var ax = accelerationIncludingGravity.x;
+	var ay = accelerationIncludingGravity.y;
+	var az = accelerationIncludingGravity.z;
 	
 	var rotation = event.rotationRate;
 	alpha = rotation.alpha;
