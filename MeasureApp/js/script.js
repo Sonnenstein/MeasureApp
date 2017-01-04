@@ -17,6 +17,8 @@ function startMeasurement() {
 
 
 window.ondevicemotion = function(event) { 
+	alert(event);
+
 	var acceleration = event.acceleration;
 	var ax = acceleration.x;
 	var ay = acceleration.y;
