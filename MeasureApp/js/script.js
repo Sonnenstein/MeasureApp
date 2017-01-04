@@ -17,8 +17,6 @@ function startMeasurement() {
 
 
 window.ondevicemotion = function(event) { 
-	alert(event.acceleration.x);
-
 	var accelerationIncludingGravity = event.accelerationIncludingGravity;
 	var ax = accelerationIncludingGravity.x;
 	var ay = accelerationIncludingGravity.y;
@@ -32,7 +30,7 @@ window.ondevicemotion = function(event) {
 	clock = performance.now() - task_start;
 	tick = tick + 1;
 	
-	document.querySelector("#x_acc").innerHTML = "X = " + alpha;
+	document.querySelector("#x_acc").innerHTML = "X = " + ax;
 	document.querySelector("#y_acc").innerHTML = "Y = " + ay;
 	document.querySelector("#z_acc").innerHTML = "Z = " + az;
 	document.querySelector("#clock_acc").innerHTML = "Clock = " + clock;
@@ -43,6 +41,11 @@ window.ondevicemotion = function(event) {
 	}    
 }
 
+window.addEventListener("deviceorientation", function(event) {
+	document.querySelector("#mag_alpha").innerHTML = "alpha = " + event.alpha;
+	document.querySelector("#mag_beta").innerHTML = "beta = " + event.beta;
+	document.querySelector("#mag_gamma").innerHTML = "gamma = " + event.gamma;
+}, true);
 
 
 
