@@ -110,7 +110,7 @@ function calculateDistance(data) {
 	speed.push(0.0);
 		
 	var sum = 0;
-	for (var i = 0; i < data.length) {
+	for (var i = 0; i < data.length; i++) {
 		sum = sum + data[i]["az"];
 	}
 	return sum;
