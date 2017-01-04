@@ -95,8 +95,9 @@ function calculateDistance(data) {
 		
 	for (var i = 1; i < data.length; i++) { // simple trapez rule
 		var interval = (data[i]["time"] - data[i - 1]["time"]);
-		var acceleration = (data[i]["az"] + data[i - 1]["az"]) / 2.0 - cZ;
-		var newSpeed = speed[i - 1] + interval * acceleration;
+		var avgAcceleration = (data[i]["az"] + data[i - 1]["az"]) / 2.0 - cZ;
+		var newSpeed = speed[i - 1] + acceleration * interval;
+		speed.push(newSpeed);
 	}             
 	
 	var dist = 0.0;
