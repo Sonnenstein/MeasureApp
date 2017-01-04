@@ -1,5 +1,5 @@
-var clock = 0.0;
-var task_start = performance.now();
+var time = 0.0;
+var task_start = 0.0;
 var tick = 0;
 var lastTime = 0.0;
 
@@ -7,11 +7,24 @@ var alpha = 0.0;
 var beta = 0.0;
 var gamma = 0.0;
 
+var measurementActive = false;
+var data = [];
+
 function startMeasurement() {
 
-	if (Math.abs(beta) < 2.0 && Math.abs(gamma) < 2.0) {
-		document.querySelector("#dist_acc").innerHTML = "Balanced";
-		document.querySelector("#dist_acc").style.backgroundColor = 'green';
+	if (!measurementActive) {
+		if (Math.abs(beta) < 2.0 && Math.abs(gamma) < 2.0) {
+			document.querySelector("#dist_acc").innerHTML = "Measuring";
+			document.querySelector("#dist_acc").style.backgroundColor = 'green';
+			data.length = 0;
+			task_start = 0.0;
+			measurementActive = true;
+		}
+	} else {
+		document.querySelector("#dist_acc").innerHTML = "Measurements: " + data.length;
+		document.querySelector("#dist_acc").style.backgroundColor = 'orange';
+		measurementActive = false;
+		
 	}
 }
 
@@ -23,19 +36,39 @@ window.ondevicemotion = function(event) {
 	var az = accelerationIncludingGravity.z;
 	
 	var rotation = event.rotationRate;
-	alpha = rotation.alpha;
-	beta = rotation.beta;
-	gamma = rotation.gamma;
+	var alpha = rotation.alpha;
+	var beta = rotation.beta;
+	var gamma = rotation.gamma;
 	
-	clock = performance.now() - task_start;
-	tick = tick + 1;
+	
+	// record data
+	if(measurementActive) {
+		if (task_start = 0) {
+			task_start = performance.now();
+		}
+	
+		var newItem = [];
+		newItem["ax"] = ax;
+		newItem["ay"] = ay;
+		newItem["az"] = az;
+		newItem["alpha"] = alpha;
+		newItem["beta"] = beta;
+		newItem["gamma"] = gamma;
+		newItem["time"] = performance.now() - task_start;
+		
+		data.push(newItem);
+	}
+
 	
 	document.querySelector("#x_acc").innerHTML = "X = " + ax;
 	document.querySelector("#y_acc").innerHTML = "Y = " + ay;
 	document.querySelector("#z_acc").innerHTML = "Z = " + az;
-	document.querySelector("#clock_acc").innerHTML = "Clock = " + clock;
-	if (clock - lastTime >= 1000.0) {
-		lastTime = Math.floor(clock);
+	document.querySelector("#time_acc").innerHTML = "Time = " + time;
+	
+	// measurements per second
+	tick = tick + 1;
+	if (time - lastTime >= 1000.0) {
+		lastTime = Math.floor(time);
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
 		tick = 0;
 	}    

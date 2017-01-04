@@ -17,6 +17,11 @@ body {
 	text-align: center;
 }
 
+button {
+	width:400px 
+	height:200px
+}
+
 footer {
 	height: 100px;
 	/* Place one row of text vertically centered*/
