@@ -30,7 +30,7 @@ function startMeasurement() {
 		document.querySelector("#dist_acc").innerHTML = "Number of Measurements: " + data.length;
 		document.querySelector("#dist_acc").style.backgroundColor = 'orange';
 		
-		zDistance = calculateDistance(data); 
+		var zDistance = calculateDistance(data); 
 		document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + zDistance;
 	}
 }
