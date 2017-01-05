@@ -20,7 +20,7 @@ function startMeasurement() {
 			document.querySelector("#dist_acc").innerHTML = "Measuring";
 			document.querySelector("#dist_acc").style.backgroundColor = 'green';
 			data.length = 0;
-			task_start = -1.0;
+			task_start = performance.now();
 			measurementActive = true;
 		}
 	} else {
