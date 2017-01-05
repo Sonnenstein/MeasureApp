@@ -69,6 +69,9 @@ window.ondevicemotion = function(event) {
 	alpha = rotation.alpha;
 	beta = rotation.beta;
 	gamma = rotation.gamma;
+	if (rotation == null || alpha == null || beta == null || gamma == null) {
+		alert("not working");
+	}
 
 	if(measurementActive) { // record data
 		var newItem = [];
