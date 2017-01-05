@@ -11,10 +11,44 @@ var cY = 0.0;
 var cZ = 0.0;
 
 var measurementActive = false;
+var calibrateActive = true;
 var data = [];
 
-function startMeasurement() {
+var state = 0;
 
+const INIT = 0;
+const CALIBRATE = 1;
+const READY = 2;
+const MEASURE = 3;
+const CALCULATE = 4;
+
+function main() {
+	init();
+}
+
+function performAction() {
+
+	switch (state) {
+		case INIT: alert("Now initaction allowed"); // init();
+			break;
+		case CALIBRATE: calibrate();
+			break;
+		case READY:
+			break;
+		case MEASURE:
+			break;
+		case CALCULATE:
+			break;
+		default: alert("StateError");
+			break;
+	}
+
+
+	// calculate gravitation
+	if (calibrateActive ) {
+		
+	}
+	
 	if (!measurementActive) {
 		// if (Math.abs(beta) < 2.0 && Math.abs(gamma) < 2.0) {
 			document.querySelector("#dist_acc").innerHTML = "Measuring";
@@ -40,6 +74,28 @@ function startMeasurement() {
 	}
 }
 
+function init() {
+	document.getElementById("actionBtn").value = "Please lay device on ground and press.";
+	task_start = performance.now();
+	state = CALIBRATE;
+}
+
+function calibrate() {
+	document.getElementById("actionBtn").value = "Now Calibrating";
+	state = CALIBRATE;
+}
+
+function ready() {
+
+}
+
+function measure() {
+
+}
+
+function calculate() {
+
+}
 
 // measurement routine
 window.ondevicemotion = function(event) { 
@@ -63,12 +119,12 @@ window.ondevicemotion = function(event) {
 
 	var currentTime = performance.now() - task_start;
 	var outTime = (Math.round(currentTime) / 1000.0);
-	var outAx = (Math.round(ax * 1000) / 1000.0);
-	var outAy = (Math.round(ay * 1000) / 1000.0);
-	var outAz = (Math.round(az * 1000) / 1000.0);
-	var outAlpha = (Math.round(alpha * 1000) / 1000.0);
-	var outBeta = (Math.round(beta * 1000) / 1000.0);
-	var outGamma = (Math.round(gamma * 1000) / 1000.0);
+	var outAx = (Math.round(ax * 10000) / 10000.0);
+	var outAy = (Math.round(ay * 10000) / 10000.0);
+	var outAz = (Math.round(az * 10000) / 10000.0);
+	var outAlpha = (Math.round(alpha * 10000) / 10000.0);
+	var outBeta = (Math.round(beta * 10000) / 10000.0);
+	var outGamma = (Math.round(gamma * 10000) / 10000.0);
 	
 	document.querySelector("#x_acc").innerHTML = "X = " + outAx;
 	document.querySelector("#y_acc").innerHTML = "Y = " + outAy;
