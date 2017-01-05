@@ -96,15 +96,10 @@ window.ondevicemotion = function(event) {
 }
 
 window.addEventListener("deviceorientation", function(event) {
-	alpha = event.rotationRate.alpha;
-	beta = event.rotationRate.beta;
-	gamma = event.rotationRate.gamma;
-
-	document.querySelector("#mag_alpha").innerHTML = "alpha = " + alpha;
-	document.querySelector("#mag_beta").innerHTML = "beta = " + beta;
-	document.querySelector("#mag_gamma").innerHTML = "gamma = " + gamma;
+	document.querySelector("#mag_alpha").innerHTML = "alpha = " + event.alpha;
+	document.querySelector("#mag_beta").innerHTML = "beta = " + event.beta;
+	document.querySelector("#mag_gamma").innerHTML = "gamma = " + event.gamma;
 }, true);
-
 
 // trial for z distance
 function calculateDistance(data) {
