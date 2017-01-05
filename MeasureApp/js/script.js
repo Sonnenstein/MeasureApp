@@ -70,14 +70,14 @@ window.ondevicemotion = function(event) {
 	var outBeta = (Math.round(beta) / 1000.0);
 	var outGamma = (Math.round(gamma) / 1000.0);
 	
-	document.querySelector("#x_acc").innerHTML = "X = " + ax;
-	document.querySelector("#y_acc").innerHTML = "Y = " + ay;
-	document.querySelector("#z_acc").innerHTML = "Z = " + az;
+	document.querySelector("#x_acc").innerHTML = "X = " + outAx;
+	document.querySelector("#y_acc").innerHTML = "Y = " + outAy;
+	document.querySelector("#z_acc").innerHTML = "Z = " + outAz;
 	document.querySelector("#time_acc").innerHTML = "Time = " + outTime;
 	
-	document.querySelector("#mag_alpha").innerHTML = "alpha = " + alpha;
-	document.querySelector("#mag_beta").innerHTML = "beta = " + beta;
-	document.querySelector("#mag_gamma").innerHTML = "gamma = " + gamma;
+	document.querySelector("#mag_alpha").innerHTML = "alpha = " + outAlpha;
+	document.querySelector("#mag_beta").innerHTML = "beta = " + outBeta;
+	document.querySelector("#mag_gamma").innerHTML = "gamma = " + outGamma;
 	
 	// measurements per second
 	tick = tick + 1;
