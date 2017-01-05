@@ -25,10 +25,11 @@ function startMeasurement() {
 		}
 	} else {
 		measurementActive = false;
-
-		cX = data[0]["ax"];
-		cY = data[0]["ay"];;
-		cZ = data[0]["az"];;
+		if (data.length > 0) {
+			cX = data[0]["ax"];
+			cY = data[0]["ay"];;
+			cZ = data[0]["az"];;
+		}
 		
 		/*
 		// Test data
@@ -77,7 +78,7 @@ window.ondevicemotion = function(event) {
 		newItem["alpha"] = alpha;
 		newItem["beta"] = beta;
 		newItem["gamma"] = gamma;
-		newItem["time"] = performance.now() - task_start;
+		newItem["time"] = (performance.now() - task_start) / 1000.0;
 		
 		data.push(newItem);
 	}
