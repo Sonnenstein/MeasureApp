@@ -54,7 +54,6 @@ function startMeasurement() {
 // measurement routine
 window.ondevicemotion = function(event) { 
 
-	var currentTime = performance.now() - task_start;
 
 	var accelerationIncludingGravity = event.accelerationIncludingGravity;
 	var ax = accelerationIncludingGravity.x;
@@ -67,7 +66,7 @@ window.ondevicemotion = function(event) {
 	gamma = rotation.gamma;
 
 	if(measurementActive) { // record data
-		if (task_start = -1.0) {
+		if (task_start == -1.0) {
 			cX = ax;
 			cY = ay;
 			cZ = az;
@@ -81,11 +80,12 @@ window.ondevicemotion = function(event) {
 		newItem["alpha"] = alpha;
 		newItem["beta"] = beta;
 		newItem["gamma"] = gamma;
-		newItem["time"] = currentTime;
+		newItem["time"] = performance.now() - task_start;;
 		
 		data.push(newItem);
 	}
 
+	var currentTime = performance.now() - task_start;
 	var outTime = (Math.round(currentTime) / 1000.0);
 
 	
