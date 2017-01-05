@@ -63,7 +63,12 @@ window.ondevicemotion = function(event) {
 
 	var currentTime = performance.now() - task_start;
 	var outTime = (Math.round(currentTime) / 1000.0);
-
+	var outAx = (Math.round(ax) / 1000.0);
+	var outAy = (Math.round(ay) / 1000.0);
+	var outAz = (Math.round(az) / 1000.0);
+	var outAlpha = (Math.round(alpha) / 1000.0);
+	var outBeta = (Math.round(beta) / 1000.0);
+	var outGamma = (Math.round(gamma) / 1000.0);
 	
 	document.querySelector("#x_acc").innerHTML = "X = " + ax;
 	document.querySelector("#y_acc").innerHTML = "Y = " + ay;
