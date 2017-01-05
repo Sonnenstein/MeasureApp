@@ -89,7 +89,7 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#x_acc").innerHTML = "X = " + ax;
 	document.querySelector("#y_acc").innerHTML = "Y = " + ay;
 	document.querySelector("#z_acc").innerHTML = "Z = " + az;
-	document.querySelector("#time_acc").innerHTML = "Time = " + time;
+	document.querySelector("#time_acc").innerHTML = "Time = " + round(time / 1000.0);
 	
 	document.querySelector("#mag_alpha").innerHTML = "alpha = " + alpha;
 	document.querySelector("#mag_beta").innerHTML = "beta = " + beta;
@@ -111,9 +111,11 @@ function calculateDistance(data) {
 	
 	var sum = 0.0;
 	for (var i = 1; i < data.length; i++) {
-		sum = sum + (data[i]["time"] - data[i - 1]["time"]);
+		if (data[i]["time"] < data[i-1][time]) {
+			return -1.0;
+		}
 	} 
-	return sum / 1000.0;
+	return 0.0;
 		
 	for (var i = 1; i < data.length; i++) { // simple trapez rule
 		var interval = (data[i]["time"] - data[i - 1]["time"]);
