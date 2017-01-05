@@ -1,5 +1,5 @@
 var time = 0.0;
-var task_start = 0.0;
+var task_start = performance.now();
 var tick = 0;
 var lastTime = 0.0;
 
@@ -21,7 +21,7 @@ function startMeasurement() {
 			document.querySelector("#dist_acc").innerHTML = "Measuring";
 			document.querySelector("#dist_acc").style.backgroundColor = 'green';
 			data.length = 0;
-			task_start = 0.0;
+			task_start = -1.0;
 			measurementActive = true;
 		}
 	} else {
@@ -65,7 +65,7 @@ window.ondevicemotion = function(event) {
 	gamma = rotation.gamma;
 	
 	if(measurementActive) { // record data
-		if (task_start = 0) {
+		if (task_start = -1.0) {
 			cX = ax;
 			cY = ay;
 			cZ = az;
@@ -108,11 +108,11 @@ window.ondevicemotion = function(event) {
 function calculateDistance(data) {
     var speed = [];
 	speed.push(0.0);
-		
-	var sum = 0;
+	
+	var sum = 0.0;
 	for (var i = 0; i < data.length; i++) {
-		sum = sum + data[i]["az"];
-	}
+		sum = sum + data[i]["time"];
+	} 
 	return sum;
 		
 	for (var i = 1; i < data.length; i++) { // simple trapez rule
