@@ -16,13 +16,13 @@ var data = [];
 function startMeasurement() {
 
 	if (!measurementActive) {
-		if (Math.abs(beta) < 2.0 && Math.abs(gamma) < 2.0) {
+		// if (Math.abs(beta) < 2.0 && Math.abs(gamma) < 2.0) {
 			document.querySelector("#dist_acc").innerHTML = "Measuring";
 			document.querySelector("#dist_acc").style.backgroundColor = 'green';
 			data.length = 0;
 			task_start = performance.now();
 			measurementActive = true;
-		}
+		// }
 	} else {
 		measurementActive = false;
 		if (data.length > 0) {
@@ -31,22 +31,7 @@ function startMeasurement() {
 			cZ = data[0]["az"];;
 		}
 		
-		/*
-		// Test data
-		for(var i = 0; i < 5; i++) {
-			var newItem = [];
-			newItem["ax"] = 1.0;
-			newItem["ay"] = 1.0;
-			newItem["az"] = 1.0;
-			newItem["alpha"] = 0;
-			newItem["beta"] = 0;
-			newItem["gamma"] = 0;
-			newItem["time"] = i;
-			
-			data.push(newItem);
-		}
-		*/
-		
+
 		document.querySelector("#dist_acc").innerHTML = "Number of Measurements: " + data.length;
 		document.querySelector("#dist_acc").style.backgroundColor = 'orange';
 		
@@ -59,10 +44,9 @@ function startMeasurement() {
 // measurement routine
 window.ondevicemotion = function(event) { 
 
-	var accelerationIncludingGravity = event.accelerationIncludingGravity;
-	var ax = accelerationIncludingGravity.x;
-	var ay = accelerationIncludingGravity.y;
-	var az = accelerationIncludingGravity.z;
+	var ax = event.accelerationIncludingGravity.x;
+	var ay = event.accelerationIncludingGravity.y;
+	var az = event.accelerationIncludingGravity.z;
 	
 	if(measurementActive) { // record data
 		var newItem = [];
@@ -86,6 +70,10 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#z_acc").innerHTML = "Z = " + az;
 	document.querySelector("#time_acc").innerHTML = "Time = " + outTime;
 	
+	document.querySelector("#mag_alpha").innerHTML = "alpha = " + alpha;
+	document.querySelector("#mag_beta").innerHTML = "beta = " + beta;
+	document.querySelector("#mag_gamma").innerHTML = "gamma = " + gamma;
+	
 	// measurements per second
 	tick = tick + 1;
 	if (currentTime - lastTime >= 1000.0) {
@@ -96,10 +84,11 @@ window.ondevicemotion = function(event) {
 }
 
 window.addEventListener("deviceorientation", function(event) {
-	document.querySelector("#mag_alpha").innerHTML = "alpha = " + event.alpha;
-	document.querySelector("#mag_beta").innerHTML = "beta = " + event.beta;
-	document.querySelector("#mag_gamma").innerHTML = "gamma = " + event.gamma;
+	alpha = event.alpha;
+	beta = event.beta;
+	gamma = event.gamma;
 }, true);
+
 
 // trial for z distance
 function calculateDistance(data) {
