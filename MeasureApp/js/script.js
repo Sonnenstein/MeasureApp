@@ -89,7 +89,7 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#x_acc").innerHTML = "X = " + ax;
 	document.querySelector("#y_acc").innerHTML = "Y = " + ay;
 	document.querySelector("#z_acc").innerHTML = "Z = " + az;
-	document.querySelector("#time_acc").innerHTML = "Time = " + round(time / 1000.0);
+	document.querySelector("#time_acc").innerHTML = "Time = " + (Math.round(time) / 1000.0f);
 	
 	document.querySelector("#mag_alpha").innerHTML = "alpha = " + alpha;
 	document.querySelector("#mag_beta").innerHTML = "beta = " + beta;
