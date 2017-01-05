@@ -110,10 +110,10 @@ function calculateDistance(data) {
 	speed.push(0.0);
 	
 	var sum = 0.0;
-	for (var i = 0; i < data.length; i++) {
-		sum = sum + data[i]["time"];
+	for (var i = 1; i < data.length; i++) {
+		sum = sum + (data[i]["time"] - data[i - 1]["time"]);
 	} 
-	return sum;
+	return sum / 1000.0;
 		
 	for (var i = 1; i < data.length; i++) { // simple trapez rule
 		var interval = (data[i]["time"] - data[i - 1]["time"]);
