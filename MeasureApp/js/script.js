@@ -26,6 +26,10 @@ function startMeasurement() {
 	} else {
 		measurementActive = false;
 
+		cX = data[0]["ax"];
+		cY = data[0]["ay"];;
+		cZ = data[0]["az"];;
+		
 		/*
 		// Test data
 		for(var i = 0; i < 5; i++) {
@@ -66,13 +70,6 @@ window.ondevicemotion = function(event) {
 	gamma = rotation.gamma;
 
 	if(measurementActive) { // record data
-		if (task_start == -1.0) {
-			cX = ax;
-			cY = ay;
-			cZ = az;
-			task_start = performance.now();
-		}
-	
 		var newItem = [];
 		newItem["ax"] = ax;
 		newItem["ay"] = ay;
@@ -80,7 +77,7 @@ window.ondevicemotion = function(event) {
 		newItem["alpha"] = alpha;
 		newItem["beta"] = beta;
 		newItem["gamma"] = gamma;
-		newItem["time"] = performance.now() - task_start;;
+		newItem["time"] = performance.now() - task_start;
 		
 		data.push(newItem);
 	}
