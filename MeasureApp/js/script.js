@@ -1,4 +1,3 @@
-var time = 0.0;
 var task_start = performance.now();
 var tick = 0;
 var lastTime = 0.0;
@@ -54,6 +53,9 @@ function startMeasurement() {
 
 // measurement routine
 window.ondevicemotion = function(event) { 
+
+	var currentTime = performance.now() - task_start;
+
 	var accelerationIncludingGravity = event.accelerationIncludingGravity;
 	var ax = accelerationIncludingGravity.x;
 	var ay = accelerationIncludingGravity.y;
@@ -63,7 +65,7 @@ window.ondevicemotion = function(event) {
 	alpha = rotation.alpha;
 	beta = rotation.beta;
 	gamma = rotation.gamma;
-	
+
 	if(measurementActive) { // record data
 		if (task_start = -1.0) {
 			cX = ax;
@@ -79,14 +81,14 @@ window.ondevicemotion = function(event) {
 		newItem["alpha"] = alpha;
 		newItem["beta"] = beta;
 		newItem["gamma"] = gamma;
-		newItem["time"] = performance.now() - task_start;
+		newItem["time"] = currentTime;
 		
 		data.push(newItem);
 	}
 
-	time = performance.now() - task_start;
+	var outTime = (Math.round(currentTime) / 1000.0);
+
 	
-	var outTime = (Math.round(time) / 1000.0);
 	document.querySelector("#x_acc").innerHTML = "X = " + ax;
 	document.querySelector("#y_acc").innerHTML = "Y = " + ay;
 	document.querySelector("#z_acc").innerHTML = "Z = " + az;
@@ -98,8 +100,8 @@ window.ondevicemotion = function(event) {
 	
 	// measurements per second
 	tick = tick + 1;
-	if (time - lastTime >= 1000.0) {
-		lastTime = Math.floor(time);
+	if (currentTime - lastTime >= 1000.0) {
+		lastTime = Math.floor(currentTime);
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
 		tick = 0;
 	}    
@@ -112,11 +114,9 @@ function calculateDistance(data) {
 	
 	var sum = 0.0;
 	for (var i = 1; i < data.length; i++) {
-		if (data[i]["time"] < data[i-1][time]) {
-			return -1.0;
-		}
+		sum = sum + (data[i]["time"] - data[i - 1]["time"]);
 	} 
-	return 0.0;
+	return sum;
 		
 	for (var i = 1; i < data.length; i++) { // simple trapez rule
 		var interval = (data[i]["time"] - data[i - 1]["time"]);
