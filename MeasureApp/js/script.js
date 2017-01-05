@@ -107,13 +107,8 @@ window.ondevicemotion = function(event) {
 // trial for z distance
 function calculateDistance(data) {
     var speed = [];
+
 	speed.push(0.0);
-	
-	var sum = 0.0;
-	for (var i = 1; i < data.length; i++) {
-		sum = sum + (data[i]["time"] - data[i - 1]["time"]);
-	} 
-	return sum;
 		
 	for (var i = 1; i < data.length; i++) { // simple trapez rule
 		var interval = (data[i]["time"] - data[i - 1]["time"]);
