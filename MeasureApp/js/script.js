@@ -63,13 +63,6 @@ window.ondevicemotion = function(event) {
 	var ax = accelerationIncludingGravity.x;
 	var ay = accelerationIncludingGravity.y;
 	var az = accelerationIncludingGravity.z;
-
-	alpha = event.rotationRate.alpha;
-	beta = event.rotationRate.beta;
-	gamma = event.rotationRate.gamma;
-	if (alpha == null) {
-		alert("null");
-	}
 	
 	if(measurementActive) { // record data
 		var newItem = [];
@@ -93,10 +86,6 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#z_acc").innerHTML = "Z = " + az;
 	document.querySelector("#time_acc").innerHTML = "Time = " + outTime;
 	
-	document.querySelector("#mag_alpha").innerHTML = "alpha = " + alpha;
-	document.querySelector("#mag_beta").innerHTML = "beta = " + beta;
-	document.querySelector("#mag_gamma").innerHTML = "gamma = " + gamma;
-	
 	// measurements per second
 	tick = tick + 1;
 	if (currentTime - lastTime >= 1000.0) {
@@ -105,6 +94,17 @@ window.ondevicemotion = function(event) {
 		tick = 0;
 	}    
 }
+
+window.addEventListener("deviceorientation", function(event) {
+	alpha = event.rotationRate.alpha;
+	beta = event.rotationRate.beta;
+	gamma = event.rotationRate.gamma;
+
+	document.querySelector("#mag_alpha").innerHTML = "alpha = " + alpha;
+	document.querySelector("#mag_beta").innerHTML = "beta = " + beta;
+	document.querySelector("#mag_gamma").innerHTML = "gamma = " + gamma;
+}, true);
+
 
 // trial for z distance
 function calculateDistance(data) {
