@@ -59,20 +59,15 @@ function startMeasurement() {
 // measurement routine
 window.ondevicemotion = function(event) { 
 
-
 	var accelerationIncludingGravity = event.accelerationIncludingGravity;
 	var ax = accelerationIncludingGravity.x;
 	var ay = accelerationIncludingGravity.y;
 	var az = accelerationIncludingGravity.z;
-	
-	var rotation = event.rotationRate;
-	alpha = rotation.alpha;
-	beta = rotation.beta;
-	gamma = rotation.gamma;
-	if (rotation == null || alpha == null || beta == null || gamma == null) {
-		alert("not working");
-	}
 
+	alpha = event.rotationRate.alpha;
+	beta = event.rotationRate.beta;
+	gamma = event.rotationRate.gamma;
+	
 	if(measurementActive) { // record data
 		var newItem = [];
 		newItem["ax"] = ax;
