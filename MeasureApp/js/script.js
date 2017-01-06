@@ -28,11 +28,11 @@ function main() {
 function performAction() {
 
 	switch (state) {
-		case INIT: calibrate();
+		case 0: calibrate();
 			break;
-		case CALIBRATE:
+		case 1:
 			break;
-		case READY:
+		case 2:
 			break;
 		case MEASURE:
 			break;
