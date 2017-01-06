@@ -96,9 +96,9 @@ function calculate() {
 // measurement routine
 window.ondevicemotion = function(event) { 
 
-	var ax = event.accelerationIncludingGravity.x;
-	var ay = event.accelerationIncludingGravity.y;
-	var az = event.accelerationIncludingGravity.z;
+	var ax = -event.accelerationIncludingGravity.x;
+	var ay = -event.accelerationIncludingGravity.y;
+	var az = -event.accelerationIncludingGravity.z;
 	
 	if(measurementActive) { // record data
 		var newItem = [];
@@ -146,9 +146,17 @@ window.ondevicemotion = function(event) {
 }
 
 window.addEventListener("deviceorientation", function(event) {
+	// corrected angles
 	alpha = event.alpha;
-	beta = event.beta;
+
+	if (beta >= 0) {
+		beta = event.beta;
+	} else {
+		beta = event.beta + 360;
+	}
+	
 	gamma = event.gamma;
+	
 }, true);
 
 
