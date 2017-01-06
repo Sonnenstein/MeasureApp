@@ -21,14 +21,11 @@ const READY = 2;
 const MEASURE = 3;
 const CALCULATE = 4;
 
-var stop = false;
-
 function main() {
 	init();
 }
 
 function performAction() {
-	stop = !stop;
 
 	switch (state) {
 		case INIT: calibrate(); // calibrate();
@@ -46,13 +43,11 @@ function performAction() {
 	}
 	
 	if (!measurementActive) {
-		// if (Math.abs(beta) < 2.0 && Math.abs(gamma) < 2.0) {
-			document.querySelector("#dist_acc").innerHTML = "Measuring";
-			document.querySelector("#dist_acc").style.backgroundColor = 'green';
-			data.length = 0;
-			task_start = performance.now();
-			measurementActive = true;
-		// }
+		document.querySelector("#dist_acc").innerHTML = "Measuring";
+		document.querySelector("#dist_acc").style.backgroundColor = 'green';
+		data.length = 0;
+		task_start = performance.now();
+		measurementActive = true;
 	} else {
 		measurementActive = false;
 		if (data.length > 0) {
@@ -98,8 +93,6 @@ function calculate() {
 
 // measurement routine
 window.ondevicemotion = function(event) { 
-
-	if (!stop) {
 
 	var ax = -event.accelerationIncludingGravity.x;
 	var ay = -event.accelerationIncludingGravity.y;
@@ -148,14 +141,14 @@ window.ondevicemotion = function(event) {
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
 		tick = 0;
 	}    
-	}
+	
 }
 
 window.addEventListener("deviceorientation", function(event) {
 	// corrected angles
 	alpha = event.alpha;
-	beta = event.beta;
-	gamma = event.gamma;
+	beta = (event.beta +36);
+	gamma = -event.gamma;
 }, true);
 
 
@@ -199,16 +192,18 @@ function calculateCalibration() {
 		sum_beta += data[i]["beta"];
 		sum_gamma += data[i]["gamma"];
 	}
+		
+	var vec = [];
+	vec["x"] = sum_x / data.length;
+	vec["y"] = sum_y / data.length;
+	vec["z"] = sum_z / data.length;
 	
-	sum_x = sum_x / data.length;
-	sum_y = sum_y / data.length;
-	sum_z = sum_z / data.length;
-	sum_alpha = sum_alpha / data.length;
-	sum_beta = sum_beta / data.length;
-	sum_gamma = sum_gamma / data.length;
+	vec = rotateZ(vec, -1 *(sum_alpha / data.length) / 360 * 2 * Math.PI);
+	vec = rotateX(vec, -1 *(sum_beta / data.length) / 360 * 2 * Math.PI);
+	vec = rotateY(vec, -1 *(sum_gamma / data.length) / 360 * 2 * Math.PI);
 	
-	correctionX = 0;
-	correctionY = 0;
-	correctionZ = 0;
+	correctionX = vec["x"];
+	correctionY = vec["y"];
+	correctionZ = vec["z"];
 }
 

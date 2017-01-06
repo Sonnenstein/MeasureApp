@@ -2,21 +2,27 @@
 
 // rotates arround x-Axis
 function rotateX(vec, angle) {
-	vec["x"] = vec["x"];
-	vec["y"] = Math.cos(angle) * vec["y"] - Math.sin(angle) * vec["z"]; 
-	vec["z"] = Math.sin(angle) * vec["y"] + Math.cos(angle) * vec["z"];
+	var res = [];
+	res["x"] = vec["x"];
+	res["y"] = Math.cos(angle) * vec["y"] - Math.sin(angle) * vec["z"]; 
+	res["z"] = Math.sin(angle) * vec["y"] + Math.cos(angle) * vec["z"];
+	return res;
 }
 
 // rotates arround y-Axis
 function rotateY(vec, angle) {
-	vec["x"] = Math.cos(angle) * vec["x"] - Math.sin(angle) * vec["z"];
-	vec["y"] = vec["y"];
-	vec["z"] = Math.sin(angle) * vec["x"] + Math.cos(angle) * vec["z"];
+	var res = [];
+	res["x"] = Math.cos(angle) * vec["x"] - Math.sin(angle) * vec["z"];
+	res["y"] = vec["y"];
+	res["z"] = Math.sin(angle) * vec["x"] + Math.cos(angle) * vec["z"];
+	return res
 }
 
 // rotates arround z-Axis
 function rotateZ(vec, angle) {
-	vec["x"] = Math.cos(angle) * vec["x"] - Math.sin(angle) * vec["y"]; 
-	vec["y"] = Math.sin(angle) * vec["x"] + Math.cos(angle) * vec["y"]; 
-	vec["z"] = vec["z"];
-}
+	var res = [];
+	res["x"] = Math.cos(angle) * vec["x"] - Math.sin(angle) * vec["y"]; 
+	res["y"] = Math.sin(angle) * vec["x"] + Math.cos(angle) * vec["y"]; 
+	res["z"] = vec["z"];
+	return res;
+} 
