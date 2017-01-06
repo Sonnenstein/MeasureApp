@@ -6,12 +6,11 @@ var alpha = 0.0;
 var beta = 0.0;
 var gamma = 0.0;
 
-var cX = 0.0;
-var cY = 0.0;
-var cZ = 0.0;
+var correctionX = 0.0;
+var correctionY = 0.0;
+var correctionZ = 0.0;
 
 var measurementActive = false;
-var calibrateActive = true;
 var data = [];
 
 var state = 0;
@@ -29,9 +28,9 @@ function main() {
 function performAction() {
 
 	switch (state) {
-		case INIT: alert("Now initaction allowed"); // init();
+		case INIT: calibrate(); // calibrate();
 			break;
-		case CALIBRATE: calibrate();
+		case CALIBRATE:
 			break;
 		case READY:
 			break;
@@ -39,14 +38,8 @@ function performAction() {
 			break;
 		case CALCULATE:
 			break;
-		default: alert("StateError");
+		default: alert("StateError: " + state);
 			break;
-	}
-
-
-	// calculate gravitation
-	if (calibrateActive ) {
-		
 	}
 	
 	if (!measurementActive) {
@@ -75,14 +68,17 @@ function performAction() {
 }
 
 function init() {
-	document.getElementById("actionBtn").value = "Please lay device on ground and press.";
+	document.getElementById("actionBtn").value = "Please hold still and press button.";
 	task_start = performance.now();
-	state = CALIBRATE;
 }
 
 function calibrate() {
-	document.getElementById("actionBtn").value = "Now Calibrating";
 	state = CALIBRATE;
+	document.getElementById("actionBtn").value = "Now Calibrating";
+	document.querySelector("#dist_acc").style.backgroundColor = 'orange';
+	data.length = 0;
+	task_start = performance.now();
+	measurementActive = true;
 }
 
 function ready() {
@@ -100,9 +96,9 @@ function calculate() {
 // measurement routine
 window.ondevicemotion = function(event) { 
 
-	var ax = event.accelerationIncludingGravity.x;
-	var ay = event.accelerationIncludingGravity.y;
-	var az = event.accelerationIncludingGravity.z;
+	var ax = -event.accelerationIncludingGravity.x;
+	var ay = -event.accelerationIncludingGravity.y;
+	var az = -event.accelerationIncludingGravity.z;
 	
 	if(measurementActive) { // record data
 		var newItem = [];
@@ -116,6 +112,11 @@ window.ondevicemotion = function(event) {
 		
 		data.push(newItem);
 	}
+	
+	if (state = CALIBRATE && data.length >= 100) {
+		calculateCalibration();
+	}
+	
 
 	var currentTime = performance.now() - task_start;
 	var outTime = (Math.round(currentTime) / 1000.0);
@@ -146,20 +147,20 @@ window.ondevicemotion = function(event) {
 
 window.addEventListener("deviceorientation", function(event) {
 	alpha = event.alpha;
-	beta = event.beta;
-	gamma = event.gamma;
+	beta = -event.beta;
+	gamma = -event.gamma;
 }, true);
 
 
 // trial for z distance
-function calculateDistance(data) {
+function calculateDistance() {
     var speed = [];
 
 	speed.push(0.0);
 		
 	for (var i = 1; i < data.length; i++) { // simple trapez rule
 		var interval = (data[i]["time"] - data[i - 1]["time"]);
-		var avgAcceleration = (data[i]["az"] + data[i - 1]["az"]) / 2.0 - cZ;
+		var avgAcceleration = (data[i]["az"] + data[i - 1]["az"]) / 2.0 - correctionZ;
 		var newSpeed = speed[i - 1] + avgAcceleration * interval;
 		speed.push(newSpeed);
 	}             
@@ -174,5 +175,32 @@ function calculateDistance(data) {
 	return dist;
 }
 
-
+function calculateCalibration() {
+	var sum_x = 0.0;
+	var sum_y = 0.0;
+	var sum_z = 0.0;
+	var sum_alpha = 0.0;
+	var sum_beta = 0.0;
+	var sum_gamma = 0.0;
+	
+	for (var i = 0; i < data.length; i++) {
+		sum_x += data[i]["ax"];
+		sum_y += data[i]["ay"];
+		sum_z += data[i]["az"];
+		sum_alpha += data[i]["alpha"];
+		sum_beta += data[i]["beta"];
+		sum_gamma += data[i]["gamma"];
+	}
+	
+	sum_x = sum_x / data.length;
+	sum_y = sum_y / data.length;
+	sum_z = sum_z / data.length;
+	sum_alpha = sum_alpha / data.length;
+	sum_beta = sum_beta / data.length;
+	sum_gamma = sum_gamma / data.length;
+	
+	correctionX = 0;
+	correctionY = 0;
+	correctionZ = 0;
+}
 
