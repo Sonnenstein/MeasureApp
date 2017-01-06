@@ -13,7 +13,7 @@ var correctionZ = 0.0;
 var measurementActive = false;
 var data = [];
 
-var state;
+var state = -1;
 
 const INIT = 0;
 const CALIBRATE = 1;
@@ -28,7 +28,7 @@ function main() {
 function performAction() {
 
 	switch (state) {
-		case INIT: calibrate(); // calibrate();
+		case INIT: calibrate();
 			break;
 		case CALIBRATE:
 			break;
