@@ -28,7 +28,7 @@ function main() {
 }
 
 function performAction() {
-	stop = true;
+	stop = !stop;
 
 	switch (state) {
 		case INIT: calibrate(); // calibrate();
@@ -154,19 +154,8 @@ window.ondevicemotion = function(event) {
 window.addEventListener("deviceorientation", function(event) {
 	// corrected angles
 	alpha = event.alpha;
-
-	if (beta >= 0) {
-		beta = event.beta;
-	} else {
-		beta = event.beta + 360.0;
-	}
-	
-	if (beta < 0.0) {
-		alert("Beta bellow zero");
-	}
-	
-	gamma = -event.gamma;
-	
+	beta = event.beta;
+	gamma = event.gamma;
 }, true);
 
 
