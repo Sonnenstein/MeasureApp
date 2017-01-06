@@ -13,7 +13,7 @@ var correctionZ = 0.0;
 var measurementActive = false;
 var data = [];
 
-var state = 0;
+var state;
 
 const INIT = 0;
 const CALIBRATE = 1;
@@ -66,6 +66,7 @@ function performAction() {
 }
 
 function init() {
+	state = INIT;
 	document.getElementById("actionBtn").value = "Please hold still and press button.";
 	task_start = performance.now();
 }
