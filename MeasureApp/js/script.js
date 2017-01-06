@@ -96,9 +96,9 @@ function calculate() {
 // measurement routine
 window.ondevicemotion = function(event) { 
 
-	var ax = -event.accelerationIncludingGravity.x;
-	var ay = -event.accelerationIncludingGravity.y;
-	var az = -event.accelerationIncludingGravity.z;
+	var ax = event.accelerationIncludingGravity.x;
+	var ay = event.accelerationIncludingGravity.y;
+	var az = event.accelerationIncludingGravity.z;
 	
 	if(measurementActive) { // record data
 		var newItem = [];
@@ -147,8 +147,8 @@ window.ondevicemotion = function(event) {
 
 window.addEventListener("deviceorientation", function(event) {
 	alpha = event.alpha;
-	beta = -event.beta;
-	gamma = -event.gamma;
+	beta = event.beta;
+	gamma = event.gamma;
 }, true);
 
 
