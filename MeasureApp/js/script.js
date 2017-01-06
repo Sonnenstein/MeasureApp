@@ -182,6 +182,7 @@ function calculateDistance() {
 	return dist;
 }
 
+
 function calculateCalibration() {
 	var sum_x = 0.0;
 	var sum_y = 0.0;
