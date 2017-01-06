@@ -155,7 +155,7 @@ window.addEventListener("deviceorientation", function(event) {
 		beta = event.beta + 360;
 	}
 	
-	gamma = event.gamma;
+	gamma = -event.gamma;
 	
 }, true);
 
