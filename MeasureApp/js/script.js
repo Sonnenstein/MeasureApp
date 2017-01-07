@@ -24,6 +24,16 @@ const MEASURE = 3;
 const CALCULATE = 4;
 
 function main() {
+	/*
+	var vec = [];
+	vec["x"] = 1;
+	vec["y"] = 0;
+	vec["z"] = 0;
+	vec = transformDeviceToWorld(vec, 90, 0, 0);
+	console.log("x: " + vec["x"] + "\n");
+	console.log("y: " + vec["y"] + "\n");
+	console.log("z: " + vec["z"] + "\n");
+	*/
 	init();
 }
 
@@ -195,9 +205,9 @@ function performCalibration() {
 	vec["y"] = sum_y / data.length;
 	vec["z"] = sum_z / data.length;
 	
-	var angleAlpha = (sum_alpha / data.length) / 360 * 2 * Math.PI;
-	var angleBeta = (sum_beta / data.length) / 360 * 2 * Math.PI;
-	var angleGamma = (sum_gamma / data.length) / 360 * 2 * Math.PI;
+	var angleAlpha = (sum_alpha / data.length);
+	var angleBeta = (sum_beta / data.length);
+	var angleGamma = (sum_gamma / data.length);
 	
 	vec = transformDeviceToWorld(vec, angleAlpha, angleBeta, angleGamma);
 	
