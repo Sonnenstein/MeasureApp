@@ -24,7 +24,6 @@ const CALCULATE = 4;
 var stop = false;
 
 function main() {
-alert("Main");
 	init();
 }
 
