@@ -21,18 +21,22 @@ const READY = 2;
 const MEASURE = 3;
 const CALCULATE = 4;
 
+var stop = false;
+
 function main() {
+alert("Main");
 	init();
 }
 
 function performAction() {
+	stop = !stop;
 
 	switch (state) {
-		case 0: calibrate();
+		case INIT: calibrate();
 			break;
-		case 1:
+		case CALIBRATE:
 			break;
-		case 2:
+		case READY:
 			break;
 		case MEASURE:
 			break;
@@ -94,7 +98,7 @@ function calculate() {
 
 // measurement routine
 window.ondevicemotion = function(event) { 
-
+	if(!stop) {
 	var ax = -event.accelerationIncludingGravity.x;
 	var ay = -event.accelerationIncludingGravity.y;
 	var az = -event.accelerationIncludingGravity.z;
@@ -142,7 +146,7 @@ window.ondevicemotion = function(event) {
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
 		tick = 0;
 	}    
-	
+	}
 }
 
 window.addEventListener("deviceorientation", function(event) {
