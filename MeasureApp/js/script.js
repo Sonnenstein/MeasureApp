@@ -1,4 +1,6 @@
 var task_start = performance.now();
+
+// for ticks per second
 var tick = 0;
 var lastTime = 0.0;
 
@@ -20,15 +22,33 @@ const CALIBRATE = 1;
 const READY = 2;
 const MEASURE = 3;
 const CALCULATE = 4;
-const WAIT = 5;
 
 function main() {
-	initialise();
+	init();
 }
+
+function init() {
+	state = INIT;
+	document.getElementById("actionBtn").value = "Please hold still and press button for calibration.";
+}
+
+function calibrate() {
+	state = CALIBRATE;
+	document.getElementById("actionBtn").value = "Now Calibrating";
+	document.querySelector("#dist_acc").style.backgroundColor = 'orange';
+	startMeasurement();
+}
+
+function ready() {
+	state = READY;
+	alert("X: " + correctionX + " Y: " + correctionY + " Z: " + correctionZ);
+}
+
+// ------------------------------------------------------------
 
 function performAction() {
 	switch (state) {
-		case INIT: calibration();
+		case INIT: calibrate();
 			break;
 		case CALIBRATE:
 			break;
@@ -38,9 +58,7 @@ function performAction() {
 			break;
 		case CALCULATE:
 			break;
-		case WAIT: 
-			break;
-		default: alert(state);
+		default: alert("Invalid state: " + state);
 			break;
 	}
 	
@@ -67,20 +85,7 @@ function performAction() {
 	}
 }
 
-function initialise() {
-	state = INIT;
-	document.getElementById("actionBtn").value = "Please hold still and press button.";
-	task_start = performance.now();
-}
-
-function calibration() {
-	state = CALIBRATE;
-	document.getElementById("actionBtn").value = "Now Calibrating";
-	document.querySelector("#dist_acc").style.backgroundColor = 'orange';
-	data.length = 0;
-	task_start = performance.now();
-	measurementActive = true;
-}
+// ------------------------------------------------------------
 
 // measurement routine
 window.ondevicemotion = function(event) { 
@@ -102,9 +107,9 @@ window.ondevicemotion = function(event) {
 	}
 	
 	if (state == CALIBRATE && data.length >= 100) {
+		stopMeasurement();
 		performCalibration();
 	}
-	
 
 	var currentTime = performance.now() - task_start;
 	var outTime = (Math.round(currentTime) / 1000.0);
@@ -140,6 +145,7 @@ window.addEventListener("deviceorientation", function(event) {
 	gamma = -event.gamma;
 }, true);
 
+// ------------------------------------------------------------
 
 // trial for z distance
 function calculateDistance() {
@@ -164,7 +170,7 @@ function calculateDistance() {
 	return dist;
 }
 
-
+// performs calibration based on measured data
 function performCalibration() {
 	var sum_x = 0.0;
 	var sum_y = 0.0;
@@ -197,6 +203,26 @@ function performCalibration() {
 	correctionY = vec["y"];
 	correctionZ = vec["z"];
 	
-	state = READY;
+	ready();
+}
+
+// ------------------------------------------------------------
+
+// starts measurement and clears data
+function startMeasurement() {
+	data.length = 0;
+	task_start = performance.now();
+	measurementActive = true;
+}
+
+// stops measurement and clears data
+function resetMeasurement() {
+	measurementActive = false;
+	data.length = ;
+}
+
+// stop measurements
+function stopMeasurement() {
+	measurementActive = false;
 }
 
