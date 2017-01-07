@@ -21,15 +21,11 @@ const READY = 2;
 const MEASURE = 3;
 const CALCULATE = 4;
 
-var stop = false;
-
 function main() {
 	init();
 }
 
 function performAction() {
-	stop = !stop;
-
 	switch (state) {
 		case INIT: calibrate();
 			break;
@@ -97,7 +93,6 @@ function calculate() {
 
 // measurement routine
 window.ondevicemotion = function(event) { 
-	if(!stop) {
 	var ax = -event.accelerationIncludingGravity.x;
 	var ay = -event.accelerationIncludingGravity.y;
 	var az = -event.accelerationIncludingGravity.z;
@@ -145,7 +140,6 @@ window.ondevicemotion = function(event) {
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
 		tick = 0;
 	}    
-	}
 }
 
 window.addEventListener("deviceorientation", function(event) {
@@ -202,9 +196,11 @@ function calculateCalibration() {
 	vec["y"] = sum_y / data.length;
 	vec["z"] = sum_z / data.length;
 	
-	vec = rotateZ(vec, -1 *(sum_alpha / data.length) / 360 * 2 * Math.PI);
-	vec = rotateX(vec, -1 *(sum_beta / data.length) / 360 * 2 * Math.PI);
-	vec = rotateY(vec, -1 *(sum_gamma / data.length) / 360 * 2 * Math.PI);
+	var angleAlpha = (sum_alpha / data.length) / 360 * 2 * Math.PI;
+	var angleBeta = (sum_beta / data.length) / 360 * 2 * Math.PI;
+	var angleGamma = (sum_gamma / data.length) / 360 * 2 * Math.PI;
+	
+	vec = transformDeviceToWorld(vec, angleAlpha, angleBeta, angleGamma);
 	
 	correctionX = vec["x"];
 	correctionY = vec["y"];
