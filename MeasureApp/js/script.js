@@ -152,7 +152,7 @@ window.ondevicemotion = function(event) {
 window.addEventListener("deviceorientation", function(event) {
 	// corrected angles
 	alpha = event.alpha;
-	beta = (event.beta +36);
+	beta = event.beta;
 	gamma = -event.gamma;
 }, true);
 
