@@ -218,7 +218,7 @@ function startMeasurement() {
 // stops measurement and clears data
 function resetMeasurement() {
 	measurementActive = false;
-	data.length = ;
+	data.length = 0;
 }
 
 // stop measurements
