@@ -20,12 +20,15 @@ const CALIBRATE = 1;
 const READY = 2;
 const MEASURE = 3;
 const CALCULATE = 4;
+const WAIT = 5;
 
 function main() {
-	init();
+	initialise();
+	alert(state);
 }
 
 function performAction() {
+	alert(state);
 	switch (state) {
 		case INIT: calibrate();
 			break;
@@ -37,7 +40,9 @@ function performAction() {
 			break;
 		case CALCULATE:
 			break;
-		default: alert("StateError: " + state);
+		case WAIT: 
+			break;
+		default: alert(state);
 			break;
 	}
 	
@@ -64,7 +69,7 @@ function performAction() {
 	}
 }
 
-function init() {
+function initialise() {
 	state = INIT;
 	document.getElementById("actionBtn").value = "Please hold still and press button.";
 	task_start = performance.now();
@@ -111,7 +116,7 @@ window.ondevicemotion = function(event) {
 	}
 	
 	if (state = CALIBRATE && data.length >= 100) {
-		calculateCalibration();
+		performCalibration();
 	}
 	
 
@@ -143,9 +148,9 @@ window.ondevicemotion = function(event) {
 }
 
 window.addEventListener("deviceorientation", function(event) {
-	// corrected angles
+	// angles in system
 	alpha = event.alpha;
-	beta = event.beta;
+	beta = (event.beta + 360.0);
 	gamma = -event.gamma;
 }, true);
 
@@ -174,7 +179,7 @@ function calculateDistance() {
 }
 
 
-function calculateCalibration() {
+function performCalibration() {
 	var sum_x = 0.0;
 	var sum_y = 0.0;
 	var sum_z = 0.0;
@@ -205,5 +210,7 @@ function calculateCalibration() {
 	correctionX = vec["x"];
 	correctionY = vec["y"];
 	correctionZ = vec["z"];
+	
+	state = READY;
 }
 
