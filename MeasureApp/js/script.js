@@ -62,6 +62,7 @@ function performAction() {
 			break;
 	}
 	
+	/*
 	if (!measurementActive) {
 		document.querySelector("#dist_acc").innerHTML = "Measuring";
 		document.querySelector("#dist_acc").style.backgroundColor = 'green';
@@ -83,6 +84,7 @@ function performAction() {
 		var zDistance = calculateDistance(data); 
 		document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + zDistance;
 	}
+	*/
 }
 
 // ------------------------------------------------------------
@@ -210,14 +212,14 @@ function performCalibration() {
 
 // starts measurement and clears data
 function startMeasurement() {
-	data.length = 0;
+	resetMeasurement();
 	task_start = performance.now();
 	measurementActive = true;
 }
 
 // stops measurement and clears data
 function resetMeasurement() {
-	measurementActive = false;
+	stopMeasurement();
 	data.length = 0;
 }
 
