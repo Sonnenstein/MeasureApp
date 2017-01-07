@@ -24,13 +24,11 @@ const WAIT = 5;
 
 function main() {
 	initialise();
-	alert(state);
 }
 
 function performAction() {
-	alert(state);
 	switch (state) {
-		case INIT: calibrate();
+		case INIT: calibration();
 			break;
 		case CALIBRATE:
 			break;
@@ -75,25 +73,13 @@ function initialise() {
 	task_start = performance.now();
 }
 
-function calibrate() {
+function calibration() {
 	state = CALIBRATE;
 	document.getElementById("actionBtn").value = "Now Calibrating";
 	document.querySelector("#dist_acc").style.backgroundColor = 'orange';
 	data.length = 0;
 	task_start = performance.now();
 	measurementActive = true;
-}
-
-function ready() {
-
-}
-
-function measure() {
-
-}
-
-function calculate() {
-
 }
 
 // measurement routine
@@ -115,7 +101,7 @@ window.ondevicemotion = function(event) {
 		data.push(newItem);
 	}
 	
-	if (state = CALIBRATE && data.length >= 100) {
+	if (state == CALIBRATE && data.length >= 100) {
 		performCalibration();
 	}
 	
