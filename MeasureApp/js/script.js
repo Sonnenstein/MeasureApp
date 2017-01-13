@@ -1,28 +1,35 @@
 var task_start = performance.now();
+var measurement_start = performance.now();;
 
 // for ticks per second
 var tick = 0;
 var lastTime = 0.0;
 
+// last measured angles
 var alpha = 0.0;
 var beta = 0.0;
 var gamma = 0.0;
 
+// angles of calibration
 var correctionX = 0.0;
 var correctionY = 0.0;
 var correctionZ = 0.0;
 
+// defines state of system
 var measurementActive = false;
 var data = [];
+var angles = [];
+tail = 0;
+const NUM_ANGLES = 10;
 
 var state = -1;
-
 const INIT = 0;
 const CALIBRATE = 1;
 const READY = 2;
 const MEASURE = 3;
 const CALCULATE = 4;
 
+// for debugging 
 var stop = false;
 
 function main() {
@@ -54,6 +61,7 @@ function calibrate() {
 
 function ready() {
 	state = READY;
+	resetAngles();
 	document.getElementById("actionBtn").value = "Press to start measurement.";
 }
 
@@ -110,13 +118,13 @@ window.ondevicemotion = function(event) {
 	
 	if(measurementActive) { // record data
 		var newItem = [];
+		newItem["time"] = (performance.now() - task_start) / 1000.0;
 		newItem["ax"] = ax;
 		newItem["ay"] = ay;
 		newItem["az"] = az;
 		newItem["alpha"] = alpha;
 		newItem["beta"] = beta;
 		newItem["gamma"] = gamma;
-		newItem["time"] = (performance.now() - task_start) / 1000.0;
 		
 		data.push(newItem);
 	}
@@ -126,7 +134,7 @@ window.ondevicemotion = function(event) {
 		performCalibration();
 	}
 
-	var currentTime = performance.now() - task_start;
+	var currentTime = performance.now() - measurement_start;
 	var outTime = (Math.round(currentTime) / 1000.0);
 	var outAx = (Math.round(ax * 10000) / 10000.0);
 	var outAy = (Math.round(ay * 10000) / 10000.0);
@@ -155,11 +163,33 @@ window.ondevicemotion = function(event) {
 	//}
 }
 
+// Stores current angles for later interpolation
 window.addEventListener("deviceorientation", function(event) {
+	
+	var ang = [];
+	ang["time"] = (performance.now() - task_start) / 1000;
+	
 	// angles in system
 	alpha = event.alpha;
 	beta = (event.beta + 360.0);
 	gamma = -event.gamma;
+	
+	ang["alpha"] = alpha;
+	ang["beta"] = beta;
+	ang["gamma"] = gamma;
+
+	if (state != CALCULATE) {
+		if (measurementActive || (angles.length <= NUM_ANGLES))  {
+			angles.push(ang);
+		} else if (tail > 0) {
+			angles.push(ang);
+			tail = tail - 1;
+		} else {
+			angles.shift();
+			angles.push(ang);
+		}
+	}
+	
 }, true);
 
 // ------------------------------------------------------------
@@ -179,6 +209,9 @@ function prepareData() {
 		data[i]["ax"] = vec["x"] - correctionX;
 		data[i]["ay"] = vec["y"] - correctionY;
 		data[i]["az"] = vec["z"] - correctionZ;
+		
+		// normalize time
+		data[i]["time"] = data[i]["time"] - data[0]["time"];
 	}
 }
 
@@ -243,11 +276,18 @@ function performCalibration() {
 
 // ------------------------------------------------------------
 
+// folds the data with a gaussian distribution to derive acurate angles
+function foldGaussian(arr, sigma) {
+	
+}
+
+
 // starts measurement and clears data
 function startNewMeasurement() {
+	measurement_start = performance.now();
 	resetMeasurement();
-	task_start = performance.now();
 	measurementActive = true;
+	tail = 10;
 }
 
 // stops measurement and clears data
@@ -261,3 +301,7 @@ function stopMeasurement() {
 	measurementActive = false;
 }
 
+// resets angles
+function resetAngles() {
+	angles.length = 0;
+}
