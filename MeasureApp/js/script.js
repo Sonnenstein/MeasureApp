@@ -66,6 +66,7 @@ function measure() {
 function calculate() {
 	stopMeasurement();
 	state = CALCULATE;
+	prepareData();
 	var zDistance = calculateDistance(); 
 	document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + zDistance;
 	
@@ -163,6 +164,24 @@ window.addEventListener("deviceorientation", function(event) {
 
 // ------------------------------------------------------------
 
+// Transforms measurements into world space and corrects them according to calibration
+function prepareData() {
+	for (var i = 0; i < data.length; i++) {
+		
+		// transform into world space
+		var vec = [];
+		vec["x"] = data[i]["ax"];
+		vec["y"] = data[i]["ay"];
+		vec["z"] = data[i]["az"]
+		vec = transformDeviceToWorld(vec, data[i]["alpha"], data[i]["beta"], data[i]["gamma"]);
+
+		// calibrate
+		data[i]["ax"] = vec["x"] - correctionX;
+		data[i]["ay"] = vec["y"] - correctionY;
+		data[i]["az"] = vec["z"] - correctionZ;
+	}
+}
+
 // trial for z distance
 function calculateDistance() {
     var speed = [];
@@ -171,7 +190,7 @@ function calculateDistance() {
 		
 	for (var i = 1; i < data.length; i++) { // simple trapez rule
 		var interval = (data[i]["time"] - data[i - 1]["time"]);
-		var avgAcceleration = (data[i]["az"] + data[i - 1]["az"]) / 2.0 - correctionZ;
+		var avgAcceleration = (data[i]["az"] + data[i - 1]["az"]) / 2.0;
 		var newSpeed = speed[i - 1] + avgAcceleration * interval;
 		speed.push(newSpeed);
 	}             
