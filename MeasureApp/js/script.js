@@ -64,8 +64,8 @@ function measure() {
 }
 
 function calculate() {
+	stopMeasurement();
 	state = CALCULATE;
-	startNewMeasurement();
 	var zDistance = calculateDistance(); 
 	document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + zDistance;
 	
