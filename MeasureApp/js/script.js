@@ -49,13 +49,29 @@ function calibrate() {
 	state = CALIBRATE;
 	document.getElementById("actionBtn").value = "Now Calibrating";
 	document.querySelector("#dist_acc").style.backgroundColor = 'orange';
-	startMeasurement();
+	startNewMeasurement();
 }
 
 function ready() {
 	state = READY;
-	alert("X: " + correctionX + " Y: " + correctionY + " Z: " + correctionZ);
+	document.getElementById("actionBtn").value = "Press to start measurement.";
 }
+
+function measure() {
+	state = MEASURE;
+	startNewMeasurement();
+	document.getElementById("actionBtn").value = "Now measuring. Press again to stop measurement.";
+}
+
+function calculate() {
+	state = CALCULATE;
+	startNewMeasurement();
+	var zDistance = calculateDistance(); 
+	document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + zDistance;
+	
+	ready();
+}
+
 
 // ------------------------------------------------------------
 
@@ -64,44 +80,21 @@ function performAction() {
 	stop = !stop;
 	return;
 	*/
+	
 	switch (state) {
 		case INIT: calibrate();
 			break;
-		case CALIBRATE:
+		case CALIBRATE: document.getElementById("actionBtn").value = "Please wait";
 			break;
-		case READY:
+		case READY: 
 			break;
-		case MEASURE:
+		case MEASURE: calculate();
 			break;
-		case CALCULATE:
+		case CALCULATE: document.getElementById("actionBtn").value = "Please wait";
 			break;
 		default: alert("Invalid state: " + state);
 			break;
 	}
-	
-	/*
-	if (!measurementActive) {
-		document.querySelector("#dist_acc").innerHTML = "Measuring";
-		document.querySelector("#dist_acc").style.backgroundColor = 'green';
-		data.length = 0;
-		task_start = performance.now();
-		measurementActive = true;
-	} else {
-		measurementActive = false;
-		if (data.length > 0) {
-			cX = data[0]["ax"];
-			cY = data[0]["ay"];;
-			cZ = data[0]["az"];;
-		}
-		
-
-		document.querySelector("#dist_acc").innerHTML = "Number of Measurements: " + data.length;
-		document.querySelector("#dist_acc").style.backgroundColor = 'orange';
-		
-		var zDistance = calculateDistance(data); 
-		document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + zDistance;
-	}
-	*/
 }
 
 // ------------------------------------------------------------
@@ -157,6 +150,7 @@ window.ondevicemotion = function(event) {
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
 		tick = 0;
 	}    
+	
 	//}
 }
 
@@ -231,7 +225,7 @@ function performCalibration() {
 // ------------------------------------------------------------
 
 // starts measurement and clears data
-function startMeasurement() {
+function startNewMeasurement() {
 	resetMeasurement();
 	task_start = performance.now();
 	measurementActive = true;
