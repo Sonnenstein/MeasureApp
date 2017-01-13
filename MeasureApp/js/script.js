@@ -86,7 +86,7 @@ function performAction() {
 			break;
 		case CALIBRATE: document.getElementById("actionBtn").value = "Please wait";
 			break;
-		case READY: 
+		case READY: measure();
 			break;
 		case MEASURE: calculate();
 			break;
