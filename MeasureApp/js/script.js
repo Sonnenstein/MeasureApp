@@ -26,12 +26,13 @@ const CALCULATE = 4;
 var stop = false;
 
 function main() {
+	
 	/*
 	var vec = [];
-	vec["x"] = 1;
-	vec["y"] = 0;
-	vec["z"] = 0;
-	vec = transformDeviceToWorld(vec, 90, 0, 0);
+	vec["x"] = -4.549;
+	vec["y"] = -0.067;
+	vec["z"] = -9.0884;
+	vec = transformDeviceToWorld(vec, 328.57 , 360.3779,26.589);
 	console.log("x: " + vec["x"] + "\n");
 	console.log("y: " + vec["y"] + "\n");
 	console.log("z: " + vec["z"] + "\n");
@@ -59,9 +60,10 @@ function ready() {
 // ------------------------------------------------------------
 
 function performAction() {
+	/*
 	stop = !stop;
 	return;
-	
+	*/
 	switch (state) {
 		case INIT: calibrate();
 			break;
@@ -106,7 +108,7 @@ function performAction() {
 
 // measurement routine
 window.ondevicemotion = function(event) { 
-	if(!stop) {
+	//if(!stop) {
 
 	var ax = -event.accelerationIncludingGravity.x;
 	var ay = -event.accelerationIncludingGravity.y;
@@ -155,7 +157,7 @@ window.ondevicemotion = function(event) {
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
 		tick = 0;
 	}    
-	}
+	//}
 }
 
 window.addEventListener("deviceorientation", function(event) {
