@@ -214,7 +214,9 @@ function calculateDistance() {
 
 	alert(data.length);
 
+	
 	speed.push(0.0);
+	/*
 	for (var i = 1; i < (data.length / 2); i++) { // Simpsons rule
 		var interval = (data[2 * i]["time"] - data[2 * i - 2]["time"]);
 		var acc = (data[2 * i]["az"] + 4.0 * data[2 * i - 1]["az"] + data[2 * i - 2]["az"]) / 6.0
@@ -228,8 +230,9 @@ function calculateDistance() {
 		var spd = (speed[2 * i - 2] + 4 * speed[2 * i - 1] + speed[2 * i]) / 6.0;
 		dist = dist + spd * interval;
 	}    
+	*/
 	
-	/*
+	
 	var i = 1; i < data.length; i++) { // simple trapez rule
 		var interval = (data[i]["time"] - data[i - 1]["time"]);
 		var avgAcceleration = (data[i]["az"] + data[i - 1]["az"]) / 2.0;
@@ -243,8 +246,6 @@ function calculateDistance() {
 		var avgSpeed = (speed[i - 1] + speed[i]) / 2.0;
 		dist = dist + avgSpeed * interval;
 	}
-	*/
-	    
 	
 	document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + dist;
 	ready();
