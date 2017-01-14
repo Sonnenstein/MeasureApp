@@ -304,17 +304,13 @@ function addAnglesToData(sigma, rel_points) {
 		data[i]["alpha"] = 0.0;
 		data[i]["beta"] = 0.0;
 		data[i]["gamma"] = 0.0;
-		
-		if (isNaN(data[i]["alpha"]) || isNaN(data[i]["beta"]) || isNaN(data[i]["gamma"])) {
-			alert("WHAT?");
-		}
-		
+	
 		for (var j = 0; j < relevantAngles; j++) {
-			var fa = Math.exp(-((data[i]["time"] - angles[relevantAngles[i]]["time"]) 
-				* (data[i]["time"] - angles[relevantAngles[i]]["time"])) / (2 * variance));
-			data[i]["alpha"] = fa * angles[relevantAngles[i]]["alpha"];
-			data[i]["beta"] = fa * angles[relevantAngles[i]]["beta"];
-			data[i]["gamma"] = fa * angles[relevantAngles[i]]["gamma"];
+			var fa = Math.exp(-((data[i]["time"] - angles[relevantAngles[j]]["time"]) 
+				* (data[i]["time"] - angles[relevantAngles[j]]["time"])) / (2 * variance));
+			data[i]["alpha"] = fa * angles[relevantAngles[j]]["alpha"];
+			data[i]["beta"] = fa * angles[relevantAngles[j]]["beta"];
+			data[i]["gamma"] = fa * angles[relevantAngles[j]]["gamma"];
 			sum = sum + fa;
 		} 
 		
