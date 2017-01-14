@@ -24,7 +24,7 @@ const NUM_ANGLES = 10;
 
 // for fold 
 const REL_POINTS = 4;
-const USED_SIGMA = 0.025;
+const USED_SIGMA = 0.02;
 
 var state = -1;
 const INIT = 0;
@@ -62,12 +62,9 @@ function measure() {
 }
 
 function calculate() {
-	stopMeasurement();
 	state = CALCULATE;
-	prepareData();
-	var zDistance = calculateDistance(); 
-	document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + zDistance;
-	
+	stopMeasurement();
+
 	ready();
 }
 
@@ -158,21 +155,23 @@ window.addEventListener("deviceorientation", function(event) {
 	ang["beta"] = beta;
 	ang["gamma"] = gamma;
 
-	if (state != CALCULATE) {
+	if (tail > 0 && (!measurementActive)) {
+		angles.push(ang);
+		tail = tail - 1;
+		if (state == CALIBRATE && tail == 0) { // use measurements for calibration
+			performCalibration();
+		} else if (state == CALCULATE && tail == 0) { // use measurements for distance
+			calculateDistance();
+		}		
+	} else if (state != CALCULATE) {
 		if (measurementActive || (angles.length <= NUM_ANGLES))  {
 			angles.push(ang);
-		} else if (tail > 0) {		
-			angles.push(ang);
-			tail = tail - 1;
-			if (state == CALIBRATE && tail == 0) {
-				performCalibration();
-			}
 		} else {
 			angles.shift();
 			angles.push(ang);
 		}
 	}
-	
+		
 }, true);
 
 // ------------------------------------------------------------
@@ -209,6 +208,7 @@ function prepareData() {
 
 // trial for z distance
 function calculateDistance() {
+	prepareData();
     var speed = [];
 
 	speed.push(0.0);
@@ -227,7 +227,7 @@ function calculateDistance() {
 		dist = dist + avgSpeed * interval;
 	}
 	
-	return dist;
+	document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + dist;
 }
 
 // performs calibration based on measured data
@@ -317,10 +317,6 @@ function addAnglesToData(sigma, rel_points) {
 		data[i]["alpha"] = data[i]["alpha"] / sum;
 		data[i]["beta"] = data[i]["beta"] / sum;
 		data[i]["gamma"] = data[i]["gamma"] / sum;
-		
-		if (isNaN(data[i]["alpha"]) || isNaN(data[i]["beta"]) || isNaN(data[i]["gamma"])) {
-			alert("Item is NaN: " + i);
-		}
 	}
 }
 
