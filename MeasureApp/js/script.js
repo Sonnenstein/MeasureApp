@@ -233,7 +233,7 @@ function calculateDistance() {
 	*/
 	
 	
-	var i = 1; i < data.length; i++) { // simple trapez rule
+	for (var i = 1; i < data.length; i++) { // simple trapez rule
 		var interval = (data[i]["time"] - data[i - 1]["time"]);
 		var avgAcceleration = (data[i]["az"] + data[i - 1]["az"]) / 2.0;
 		var newSpeed = speed[i - 1] + avgAcceleration * interval;
