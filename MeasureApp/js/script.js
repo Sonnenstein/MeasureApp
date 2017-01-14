@@ -324,14 +324,14 @@ function addAnglesToData(sigma, rel_points) {
 
 // starts measurement and clears data
 function startNewMeasurement() {
-	measurement_start = performance.now();
 	resetMeasurement();
+	measurement_start = performance.now();
 	measurementActive = true;
 }
 
 // stops measurement and clears data
 function resetMeasurement() {
-	stopMeasuremesnt();
+	stopMeasurement();
 	data.length = 0;
 }
 
