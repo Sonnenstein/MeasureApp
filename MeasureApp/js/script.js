@@ -23,7 +23,7 @@ tail = 0;
 const NUM_ANGLES = 10;
 
 // for fold 
-const REL_ANGLES = 4;
+const REL_POINTS = 4;
 const USED_SIGMA = 0.025;
 
 var state = -1;
@@ -180,12 +180,9 @@ window.addEventListener("deviceorientation", function(event) {
 // Transforms measurements into world space and corrects them according to calibration
 function prepareData() {
 	// get relating angles for acceleration
-	// addAnglesToData(USED_SIGMA, REL_ANGLES);
+	addAnglesToData(USED_SIGMA, REL_POINTS);
 	
 	for (var i = 0; i < data.length; i++) {
-		data[i]["alpha"] = 0.0;
-		data[i]["beta"] = 0.0;
-		data[i]["gamma"] = 0.0;
 		
 		// transform into world space
 		var vec = [];
