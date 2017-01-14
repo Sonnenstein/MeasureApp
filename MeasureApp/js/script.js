@@ -22,6 +22,10 @@ var angles = [];
 tail = 0;
 const NUM_ANGLES = 10;
 
+// for fold 
+const REL_ANGLES = 4;
+const USED_SIGMA = 0.025;
+
 var state = -1;
 const INIT = 0;
 const CALIBRATE = 1;
@@ -122,10 +126,9 @@ window.ondevicemotion = function(event) {
 		newItem["ax"] = ax;
 		newItem["ay"] = ay;
 		newItem["az"] = az;
-		newItem["alpha"] = alpha;
-		newItem["beta"] = beta;
-		newItem["gamma"] = gamma;
-		
+		//newItem["alpha"] = alpha;
+		//newItem["beta"] = beta;
+		//newItem["gamma"] = gamma;
 		data.push(newItem);
 	}
 	
@@ -141,6 +144,9 @@ window.ondevicemotion = function(event) {
 	var outBeta = (Math.round(beta * 10000) / 10000.0);
 	var outGamma = (Math.round(gamma * 10000) / 10000.0);
 	
+	var currentTime = performance.now() - measurement_start;
+	var outTime = (Math.round(currentTime) / 1000.0);
+	
 	document.querySelector("#x_acc").innerHTML = "X = " + outAx;
 	document.querySelector("#y_acc").innerHTML = "Y = " + outAy;
 	document.querySelector("#z_acc").innerHTML = "Z = " + outAz;
@@ -149,17 +155,11 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#mag_alpha").innerHTML = "alpha = " + outAlpha;
 	document.querySelector("#mag_beta").innerHTML = "beta = " + outBeta;
 	document.querySelector("#mag_gamma").innerHTML = "gamma = " + outGamma;
-	
 
-	//}
-}
-
-// Stores current angles for later interpolation
-window.addEventListener("deviceorientation", function(event) {
-	tick = tick + 1;
+	/*
 	// measurements per second
-	var currentTime = performance.now() - measurement_start;
-	var outTime = (Math.round(currentTime) / 1000.0);
+	tick = tick + 1;
+
 	
 	if (currentTime - lastTime >= 1000.0) {
 		lastTime = Math.floor(currentTime);
@@ -167,6 +167,13 @@ window.addEventListener("deviceorientation", function(event) {
 		tick = 0;
 	}    
 	
+
+	*/
+	//}
+}
+
+// Stores current angles for later interpolation
+window.addEventListener("deviceorientation", function(event) {
 
 	var ang = [];
 	ang["time"] = (performance.now() - task_start) / 1000;
@@ -198,11 +205,11 @@ window.addEventListener("deviceorientation", function(event) {
 
 // Transforms measurements into world space and corrects them according to calibration
 function prepareData() {
+	// get relating angles for acceleration
+	addAnglesToData(USED_SIGMA, REL_ANGLES);
+	
 	for (var i = 0; i < data.length; i++) {
-		
-		// get relating angles for acceleration
-		
-		
+				
 		// transform into world space
 		var vec = [];
 		vec["x"] = data[i]["ax"];
@@ -251,38 +258,21 @@ function calculateDistance() {
 
 // performs calibration based on measured data
 function performCalibration() {
-	// prepareData();
+	prepareData();
 	
 	var sum_x = 0.0;
 	var sum_y = 0.0;
 	var sum_z = 0.0;
-	var sum_alpha = 0.0;
-	var sum_beta = 0.0;
-	var sum_gamma = 0.0;
-	
+
 	for (var i = 0; i < data.length; i++) {
 		sum_x += data[i]["ax"];
 		sum_y += data[i]["ay"];
 		sum_z += data[i]["az"];
-		sum_alpha += data[i]["alpha"];
-		sum_beta += data[i]["beta"];
-		sum_gamma += data[i]["gamma"];
 	}
 		
-	var vec = [];
-	vec["x"] = sum_x / data.length;
-	vec["y"] = sum_y / data.length;
-	vec["z"] = sum_z / data.length;
-	
-	var angleAlpha = (sum_alpha / data.length);
-	var angleBeta = (sum_beta / data.length);
-	var angleGamma = (sum_gamma / data.length);
-	
-	vec = transformDeviceToWorld(vec, angleAlpha, angleBeta, angleGamma);
-	
-	correctionX = vec["x"];
-	correctionY = vec["y"];
-	correctionZ = vec["z"];
+	correctionX = sum_x / data.length;
+	correctionY = sum_y / data.length;
+	correctionZ = sum_z / data.length;
 	
 	ready();
 }
@@ -290,8 +280,63 @@ function performCalibration() {
 // ------------------------------------------------------------
 
 // folds the data with a gaussian distribution to derive acurate angles
-function foldGaussian(arr, sigma, rel_points) {
+function addAnglesToData(sigma, rel_points) {
+	if (angles.length < NUM_ANGLES * 2) {
+		alert("Error, not enough measurements. Please try again.")
+	}
 	
+	var variance = sigma * sigma;
+	
+	var lastJ = 0;
+	for (var i = 0; i < data.length; i++) {
+		var closest;
+		var relevantAngles = [];
+		
+		// find nearest measurement
+		for (var j = lastJ; j < angles.length; j++) {
+			if (angles[j]["time"] <= data[i]["time"] && data[i]["time"] <= angles[j + 1]["time"]) {
+				lastJ = j;
+				if (data[i]["time"] - angles[j]["time"] < data[i]["time"] - angles[j + 1]["time"]) {
+					closest = j;
+				} else {
+					closest = j+1;
+				}
+			}
+			relevantAngles.push(closest);
+			break;
+		}
+		
+		// get relevant angles for fold
+		var hiID = closest + 1;
+		var loID = closest - 1;
+		while(relevantAngles.length < rel_points) {
+			if (data[i]["time"] - angles[loID]["time"] < data[i]["time"] - angles[hiID]["time"]) {
+				relevantAngles.push(loID);
+				loID = loID - 1;
+			} else {
+				relevantAngles.push(hiID);
+				hiID = hiID + 1;
+			}
+		}
+		
+		// fold
+		var sum = 0.0;
+		data[i]["alpha"] = 0.0;
+		data[i]["beta"] = 0.0;
+		data[i]["gamma"] = 0.0;
+		for (var j = 0; j < relevantAngles; j++) {
+			var fa = Math.exp(-((data[i]["time"] - angles[relevantAngles[i]]["time"]) 
+				* (data[i]["time"] - angles[relevantAngles[i]]["time"])) / (2 * variance));
+			data[i]["alpha"] = fa * angles[relevantAngles[i]]["alpha"];
+			data[i]["beta"] = fa * angles[relevantAngles[i]]["beta"];
+			data[i]["gamma"] = fa * angles[relevantAngles[i]]["gamma"];
+			sum = sum + fa;
+		} 
+		
+		data[i]["alpha"] = data[i]["alpha"] / sum;
+		data[i]["beta"] = data[i]["beta"] / sum;
+		data[i]["gamma"] = data[i]["gamma"] / sum;
+	}
 }
 
 
