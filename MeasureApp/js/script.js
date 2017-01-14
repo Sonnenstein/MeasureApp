@@ -1,5 +1,5 @@
 var task_start = performance.now();
-var measurement_start = performance.now();;
+var measurement_start = performance.now();
 
 // for ticks per second
 var tick = 0;
@@ -147,7 +147,7 @@ window.ondevicemotion = function(event) {
 window.addEventListener("deviceorientation", function(event) {
 
 	var ang = [];
-	ang["time"] = (performance.now() - task_start) / 1000;
+	ang["time"] = (performance.now() - task_start) / 1000.0;
 	
 	// angles in system
 	alpha = event.alpha;
