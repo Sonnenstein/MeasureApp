@@ -129,22 +129,14 @@ window.ondevicemotion = function(event) {
 	var outAx = (Math.round(ax * 10000) / 10000.0);
 	var outAy = (Math.round(ay * 10000) / 10000.0);
 	var outAz = (Math.round(az * 10000) / 10000.0);
-	var outAlpha = (Math.round(alpha * 10000) / 10000.0);
-	var outBeta = (Math.round(beta * 10000) / 10000.0);
-	var outGamma = (Math.round(gamma * 10000) / 10000.0);
-	
+
 	var currentTime = performance.now() - measurement_start;
 	var outTime = (Math.round(currentTime) / 1000.0);
 	
-	document.querySelector("#x_acc").innerHTML = "X = " + outAx;
-	document.querySelector("#y_acc").innerHTML = "Y = " + outAy;
-	document.querySelector("#z_acc").innerHTML = "Z = " + outAz;
-	document.querySelector("#time_acc").innerHTML = "Time = " + outTime;
-	
-	document.querySelector("#mag_alpha").innerHTML = "alpha = " + outAlpha;
-	document.querySelector("#mag_beta").innerHTML = "beta = " + outBeta;
-	document.querySelector("#mag_gamma").innerHTML = "gamma = " + outGamma;
-
+	document.querySelector("#x_acc").innerHTML = outAx;
+	document.querySelector("#y_acc").innerHTML = outAy;
+	document.querySelector("#z_acc").innerHTML = outAz;
+	document.querySelector("#time_acc").innerHTML = outTime;
 	
 	// measurements per second
 	
@@ -187,6 +179,14 @@ window.addEventListener("deviceorientation", function(event) {
 			angles.push(ang);
 		}
 	}
+	
+	var outAlpha = (Math.round(alpha * 10000) / 10000.0);
+	var outBeta = (Math.round(beta * 10000) / 10000.0);
+	var outGamma = (Math.round(gamma * 10000) / 10000.0);
+	
+	document.querySelector("#mag_alpha").innerHTML = outAlpha;
+	document.querySelector("#mag_beta").innerHTML = outBeta;
+	document.querySelector("#mag_gamma").innerHTML = outGamma;
 		
 }, true);
 
