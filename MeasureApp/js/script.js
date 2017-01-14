@@ -33,21 +33,7 @@ const READY = 2;
 const MEASURE = 3;
 const CALCULATE = 4;
 
-// for debugging 
-var stop = false;
-
 function main() {
-	
-	/*
-	var vec = [];
-	vec["x"] = -4.549;
-	vec["y"] = -0.067;
-	vec["z"] = -9.0884;
-	vec = transformDeviceToWorld(vec, 328.57 , 360.3779,26.589);
-	console.log("x: " + vec["x"] + "\n");
-	console.log("y: " + vec["y"] + "\n");
-	console.log("z: " + vec["z"] + "\n");
-	*/
 	init();
 }
 
@@ -59,12 +45,11 @@ function init() {
 function calibrate() {
 	state = CALIBRATE;
 	document.getElementById("actionBtn").value = "Now Calibrating";
-	document.querySelector("#dist_acc").style.backgroundColor = 'orange';
 	startNewMeasurement();
 }
 
 function ready() {
-		alert("X: " + correctionX + " Y: " + correctionY + " Z: " + correctionZ);
+	alert("X: " + correctionX + " Y: " + correctionY + " Z: " + correctionZ);
 	state = READY;
 	resetAngles();
 	document.getElementById("actionBtn").value = "Press to start measurement.";
@@ -90,11 +75,6 @@ function calculate() {
 // ------------------------------------------------------------
 
 function performAction() {
-	/*
-	stop = !stop;
-	return;
-	*/
-	
 	switch (state) {
 		case INIT: calibrate();
 			break;
@@ -115,8 +95,6 @@ function performAction() {
 
 // measurement routine
 window.ondevicemotion = function(event) { 
-	//if(!stop) {
-
 	var ax = -event.accelerationIncludingGravity.x;
 	var ay = -event.accelerationIncludingGravity.y;
 	var az = -event.accelerationIncludingGravity.z;
@@ -127,15 +105,11 @@ window.ondevicemotion = function(event) {
 		newItem["ax"] = ax;
 		newItem["ay"] = ay;
 		newItem["az"] = az;
-		//newItem["alpha"] = alpha;
-		//newItem["beta"] = beta;
-		//newItem["gamma"] = gamma;
 		data.push(newItem);
 	}
 	
 	if (state == CALIBRATE && data.length >= 100) {
 		stopMeasurement();
-		performCalibration();
 	}
 
 	var outAx = (Math.round(ax * 10000) / 10000.0);
@@ -167,10 +141,6 @@ window.ondevicemotion = function(event) {
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
 		tick = 0;
 	}    
-	
-
-	
-	//}
 }
 
 // Stores current angles for later interpolation
@@ -194,6 +164,9 @@ window.addEventListener("deviceorientation", function(event) {
 		} else if (tail > 0) {
 			angles.push(ang);
 			tail = tail - 1;
+			if (state = CALIBRATE && tail == 0) {
+				performCalibration();
+			}
 		} else {
 			angles.shift();
 			angles.push(ang);
@@ -276,6 +249,7 @@ function performCalibration() {
 	correctionZ = sum_z / data.length;
 	
 	ready();
+	
 }
 
 // ------------------------------------------------------------
@@ -346,7 +320,6 @@ function startNewMeasurement() {
 	measurement_start = performance.now();
 	resetMeasurement();
 	measurementActive = true;
-	tail = 10;
 }
 
 // stops measurement and clears data
@@ -358,6 +331,7 @@ function resetMeasurement() {
 // stop measurements
 function stopMeasurement() {
 	measurementActive = false;
+	tail = NUM_ANGLES;
 }
 
 // resets angles
