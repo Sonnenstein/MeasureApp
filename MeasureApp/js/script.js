@@ -286,13 +286,10 @@ function addAnglesToData(sigma, rel_points) {
 			}
 		}
 		
-		alert("HIT CLOSEST " + closest);
-		
 		// get relevant angles for fold
 		var hiID = closest + 1;
 		var loID = closest - 1;
 		while(relevantAngles.length < rel_points) {
-			alert(relevantAngles.length + "  " + rel_points);
 			if ((data[i]["time"] - angles[loID]["time"]) < (angles[hiID]["time"] - data[i]["time"])) {
 				relevantAngles.push(loID);
 				loID = loID - 1;
@@ -300,9 +297,7 @@ function addAnglesToData(sigma, rel_points) {
 				relevantAngles.push(hiID);
 				hiID = hiID + 1;
 			}
-			alert(relevantAngles.length + "  " + rel_points);
 		}
-		alert("HIT RELEVANT");
 		
 		// fold
 		var sum = 0.0;
@@ -321,8 +316,6 @@ function addAnglesToData(sigma, rel_points) {
 		data[i]["alpha"] = data[i]["alpha"] / sum;
 		data[i]["beta"] = data[i]["beta"] / sum;
 		data[i]["gamma"] = data[i]["gamma"] / sum;
-		
-		alert("HIT " + i);
 	}
 }
 
