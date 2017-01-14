@@ -305,14 +305,12 @@ function addAnglesToData(sigma, rel_points) {
 		data[i]["beta"] = 0.0;
 		data[i]["gamma"] = 0.0;
 	
-		for (var j = 0; j < relevantAngles; j++) {
+		for (var j = 0; j < relevantAngles.length; j++) {
 			var fa = Math.exp(-((data[i]["time"] - angles[(relevantAngles[j])]["time"]) 
 				* (data[i]["time"] - angles[(relevantAngles[j])]["time"])) / (2 * variance));
-			alert("FA " + fa);
 			data[i]["alpha"] = fa * angles[(relevantAngles[j])]["alpha"];
 			data[i]["beta"] = fa * angles[(relevantAngles[j])]["beta"];
 			data[i]["gamma"] = fa * angles[(relevantAngles[j])]["gamma"];
-			alert("alpha " + data[i]["alpha"]);
 			sum = sum + fa;
 		} 
 		
