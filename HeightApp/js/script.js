@@ -133,9 +133,9 @@ window.ondevicemotion = function(event) {
 	var currentTime = performance.now() - measurement_start;
 	var outTime = (Math.round(currentTime) / 1000.0);
 	
-	document.querySelector("#x_acc").innerHTML = outAx;
-	document.querySelector("#y_acc").innerHTML = outAy;
-	document.querySelector("#z_acc").innerHTML = outAz;
+	document.querySelector("#x_acc").innerHTML = "X: " + outAx + " m/s";
+	document.querySelector("#y_acc").innerHTML = "Y: " + outAy + " m/s";
+	document.querySelector("#z_acc").innerHTML = "Z: " + outAz + " m/s";
 	document.querySelector("#time_acc").innerHTML = outTime;
 	
 	// measurements per second
