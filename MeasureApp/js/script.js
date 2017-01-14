@@ -64,8 +64,6 @@ function measure() {
 function calculate() {
 	state = CALCULATE;
 	stopMeasurement();
-
-	ready();
 }
 
 
@@ -228,13 +226,12 @@ function calculateDistance() {
 	}
 	
 	document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + dist;
+	ready();
 }
 
 // performs calibration based on measured data
 function performCalibration() {
-	alert("HIT PREPARE");
 	prepareData();
-	alert("LEFT PREPARE");
 	var sum_x = 0.0;
 	var sum_y = 0.0;
 	var sum_z = 0.0;
@@ -250,7 +247,6 @@ function performCalibration() {
 	correctionZ = sum_z / data.length;
 	
 	ready();
-	
 }
 
 // ------------------------------------------------------------
