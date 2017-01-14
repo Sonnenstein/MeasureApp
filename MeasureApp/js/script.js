@@ -106,10 +106,10 @@ window.ondevicemotion = function(event) {
 		newItem["ay"] = ay;
 		newItem["az"] = az;
 		data.push(newItem);
-	}
-	
-	if (state == CALIBRATE && data.length >= 100) {
-		stopMeasurement();
+			
+		if (state == CALIBRATE && data.length >= 100) {
+			stopMeasurement();
+		}
 	}
 
 	var outAx = (Math.round(ax * 10000) / 10000.0);
