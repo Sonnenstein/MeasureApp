@@ -31,8 +31,8 @@
     <h1>HeightApp</h1>
 	 <div data-role="navbar">
       <ul>
-        <li><a href="#">Measurements</a></li>
-        <li><a href="#">Sensor Data</a></li>
+        <li><a href="#measurements">Measurements</a></li>
+        <li><a href="#sensor">Sensor Data</a></li>
       </ul>
     </div>
   </div>
@@ -41,33 +41,8 @@
     <p>I Welcome to my height measurement application!</p>
 	
 	<br>
-	
-	<p id="x_acc">No accelerometer found.</p>
-		<p id="y_acc"></p>
-		<p id="z_acc"></p>
-		
-		<br/>
-		
-		<p id="time_acc"></p>
-		<p id="tick_acc"></p>
-		
-		<br/>
-		
-		<p id="mag_alpha">No magnetometer found.</p>
-		<p id="mag_beta"></p>
-		<p id="mag_gamma"></p>
-
-		<br />
-	
-		
-		<h1 id="dist_acc">0.0</h1>
-		<br/>
-		
-		<h1 id="zdist_acc">0.0</h1>
-		<br/>
-		
-		<button class="ui-btn ui-shadow ui-corner-all" id="actionBtn" onclick="performAction()">Loading</button>
-		<br/>
+	<button class="ui-btn ui-shadow ui-corner-all" id="actionBtn" onclick="performAction()">Loading</button>
+	<br/>
 		
 		<a href="#browserSupport" class="ui-btn">Go to Page Two</a>
 	</div>
@@ -80,13 +55,13 @@
 </div>
 
 
-<div data-role="page" id="oldValues">
+<div data-role="page" id="measurements">
   <div data-role="header">
     <h1>Buttons</h1>
   </div>
 
   <div data-role="main" class="ui-content">
-    <p>Goodbye!</p>
+    <p>Measurements</p>
     <a href="#main" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all ui-shadow">Go to Main Page</a>
 	 <button class="ui-btn ui-icon-recycle ui-btn-icon-left">Recycle Button</button>
   </div>
@@ -96,6 +71,40 @@
   </div>
 </div> 
 		
+<div data-role="page" id="sensor">
+	<div data-role="header">
+		<h1>Sensor Data</h1>
+	</div>
+  
+	<div data-role="main" class="ui-content">
+		<p id="x_acc">No accelerometer found.</p>
+		<p id="y_acc"></p>
+		<p id="z_acc"></p>
+		
+		<br/>
+		<p id="time_acc"></p>
+		<p id="tick_acc"></p>
+		<br/>
+		
+		<p id="mag_alpha">No magnetometer found.</p>
+		<p id="mag_beta"></p>
+		<p id="mag_gamma"></p>
+
+		<br />
+		
+			
+		<h1 id="dist_acc">0.0</h1>
+		<br/>
+			
+		<h1 id="zdist_acc">0.0</h1>
+		<br/>    <a href="#main" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all ui-shadow"></a>
+	</div>
+
+  <div data-role="footer">
+    <h1>Footer Text</h1>
+  </div>
+</div> 
+	
 		
 <div data-role="page" data-dialog="true" id="browserSupport">
   <div data-role="header">
