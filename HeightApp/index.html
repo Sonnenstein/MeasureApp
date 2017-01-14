@@ -48,10 +48,6 @@
 	</div>
   
 
-  
-  <div data-role="footer">
-    <h1>Footer Text</h1>
-  </div>
 </div>
 
 
@@ -77,32 +73,68 @@
 	</div>
   
 	<div data-role="main" class="ui-content">
-		<p id="x_acc">No accelerometer found.</p>
-		<p id="y_acc"></p>
-		<p id="z_acc"></p>
-		
-		<br/>
+
 		<p id="time_acc"></p>
 		<p id="tick_acc"></p>
 		<br/>
 		
-		<p id="mag_alpha">No magnetometer found.</p>
-		<p id="mag_beta"></p>
-		<p id="mag_gamma"></p>
-
-		<br />
-		
 			
-		<h1 id="dist_acc">0.0</h1>
-		<br/>
-			
+		<h1 id="dist_acc">0.0</h1>	
 		<h1 id="zdist_acc">0.0</h1>
-		<br/>    <a href="#main" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all ui-shadow"></a>
-	</div>
 
-  <div data-role="footer">
-    <h1>Footer Text</h1>
-  </div>
+		<br>
+		<p>Accelerometer</p>
+		<table data-role="table" class="ui-responsive">
+			<thead>
+				<tr>
+					<th>Direction</th>
+					<th>Acceleration</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>X</td>
+					<td id="x_acc">not available</td>
+				</tr>
+				<tr>
+					<td>Y</td>
+					<td id="y_acc">not available</td>
+				</tr>
+				<tr>
+					<td>Z</td>
+					<td id="z_acc">not available</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<br>
+		<p>Magnetometer</p>
+		<table data-role="table" class="ui-responsive">
+			<thead>
+				<tr>
+					<th>Axis</th>
+					<th>Angle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Alpha</td>
+					<td id="mag_alpha">not available</td>
+				</tr>
+				<tr>
+					<td>Beta</td>
+					<td id="mag_beta">not available</td>
+				</tr>
+				<tr>
+					<td>Gamma</td>
+					<td id="mag_gamma">not available</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<br/>    
+		<a href="#main" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all ui-shadow"></a>
+	</div>
 </div> 
 	
 		
