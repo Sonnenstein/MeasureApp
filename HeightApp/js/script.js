@@ -2,7 +2,8 @@ var task_start = performance.now();
 var measurement_start = performance.now();
 
 // for ticks per second
-var tick = 0;
+var tick_acc = 0;
+var tick_mag = 0;
 var lastTime = 0.0;
 
 // last measured angles
@@ -139,17 +140,20 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#time_acc").innerHTML = outTime;
 	
 	// measurements per second
+	tick_acc = tick_acc + 1;
 	
 	if (currentTime - lastTime >= 1000.0) {
 		lastTime = Math.floor(currentTime);
-		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
-		tick = 0;
+		document.querySelector("#tick_acc").innerHTML = "Measurements per Second = " + tick_acc;
+		document.querySelector("#tick_mag").innerHTML = "Measurements per Second = " + tick_mag;
+
+		tick_acc = 0;
+		tick_mag = 0;
 	}    
 }
 
 // Stores current angles for later interpolation
 window.addEventListener("deviceorientation", function(event) {
-	tick = tick + 1;
 
 	var ang = [];
 	ang["time"] = (performance.now() - task_start) / 1000.0;
@@ -180,13 +184,15 @@ window.addEventListener("deviceorientation", function(event) {
 		}
 	}
 	
+	tick_mag = tick_mag + 1;
+	
 	var outAlpha = (Math.round(alpha * 10000) / 10000.0);
 	var outBeta = (Math.round(beta * 10000) / 10000.0);
 	var outGamma = (Math.round(gamma * 10000) / 10000.0);
 	
 	document.querySelector("#mag_alpha").innerHTML = "Alpha: " + outAlpha + "°";
-	document.querySelector("#mag_beta").innerHTML = "Beta" + outBeta + "°";
-	document.querySelector("#mag_gamma").innerHTML = "Gamma" + outGamma + "°";
+	document.querySelector("#mag_beta").innerHTML = "Beta: " + outBeta + "°";
+	document.querySelector("#mag_gamma").innerHTML = "Gamma: " + outGamma + "°";
 		
 }, true);
 
@@ -284,6 +290,14 @@ function performCalibration() {
 	correctionX = sum_x / data.length;
 	correctionY = sum_y / data.length;
 	correctionZ = sum_z / data.length;
+	
+	var outAx = (Math.round(correctionX * 10000) / 10000.0);
+	var outAy = (Math.round(correctionY * 10000) / 10000.0);
+	var outAz = (Math.round(correctionZ * 10000) / 10000.0);
+	
+	document.querySelector("#x_cal").innerHTML = "X: " + outAx + " m/s";
+	document.querySelector("#y_cal").innerHTML = "Y: " + outAy + " m/s";
+	document.querySelector("#z_cal").innerHTML = "Z: " + outAz + " m/s";
 	
 	ready();
 }

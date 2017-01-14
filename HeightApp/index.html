@@ -40,6 +40,9 @@
   <div data-role="main" class="ui-content">
     <p>I Welcome to my height measurement application!</p>
 	
+	<h1 id="dist_acc">0.0</h1>	
+	<h1 id="zdist_acc">0.0</h1>
+	
 	<br>
 	<button class="ui-btn ui-shadow ui-corner-all" id="actionBtn" onclick="performAction()">Loading</button>
 	<br/>
@@ -73,23 +76,13 @@
 	</div>
   
 	<div data-role="main" class="ui-content">
-
-		<p id="time_acc"></p>
-		<p id="tick_acc"></p>
-		<br/>
-		
-			
-		<h1 id="dist_acc">0.0</h1>	
-		<h1 id="zdist_acc">0.0</h1>
-
-		<br>
-		
 		<ul data-role="listview">
 			<li>
 			  	<div data-role="collapsible" data-collapsed="false">
 					<h1>Accelerometer</h1>
 					<p>
 						<ul data-role="listview" data-inset="true">
+						  <li><p id="tick_mag">Measurements per Second: not available</p></li>
 						  <li><p id="x_acc">X: not available</p></li>
 						  <li><p id="y_acc">Y: not available</p></li>
 						  <li><p id="z_acc">Z: not available</p></li>
@@ -102,9 +95,22 @@
 					<h1>Magnetometer</h1>
 					<p>
 						<ul data-role="listview" data-inset="true">
+						  <li><p id="tick_mag">Measurements per Second: not available</p></li>
 						  <li><p id="mag_alpha">Alpha: not available</p></li>
 						  <li><p id="mag_beta">Beta: not available</p></li>
 						  <li><p id="mag_gamma">Gamma: not available</p></li>
+						</ul>
+					</p>
+				</div>
+			</li>
+			<li>
+			  	<div data-role="collapsible" data-collapsed="false">
+					<h1>Calibration</h1>
+					<p>
+						<ul data-role="listview" data-inset="true">
+						  <li><p id="x_cal">X: not calibrated</p></li>
+						  <li><p id="y_cal">Y: not calibrated</p></li>
+						  <li><p id="z_cal">Z: not calibrated</p></li>
 						</ul>
 					</p>
 				</div>
