@@ -235,8 +235,9 @@ function calculateDistance() {
 
 // performs calibration based on measured data
 function performCalibration() {
+	alert("HIT PREPARE");
 	prepareData();
-	
+	alert("LEFT PREPARE");
 	var sum_x = 0.0;
 	var sum_y = 0.0;
 	var sum_z = 0.0;
