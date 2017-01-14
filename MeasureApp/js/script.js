@@ -164,7 +164,7 @@ window.addEventListener("deviceorientation", function(event) {
 		} else if (tail > 0) {
 			angles.push(ang);
 			tail = tail - 1;
-			if (state = CALIBRATE && tail == 0) {
+			if (state == CALIBRATE && tail == 0) {
 				performCalibration();
 			}
 		} else {
