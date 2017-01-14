@@ -35,6 +35,24 @@ const MEASURE = 3;
 const CALCULATE = 4;
 
 function main() {
+	
+
+	var vec = [];
+
+	vec["x"] = 5.5067;
+
+	vec["y"] = 0.1149;
+
+	vec["z"] = -8.3222;
+
+	vec = transformDeviceToWorld(vec, 58.6352, 359.3405,-33.5376);
+
+	console.log("x: " + vec["x"] + "\n");
+
+	console.log("y: " + vec["y"] + "\n");
+
+	console.log("z: " + vec["z"] + "\n");
+	
 	init();
 }
 
@@ -129,8 +147,6 @@ window.ondevicemotion = function(event) {
 
 	
 	// measurements per second
-	tick = tick + 1;
-
 	
 	if (currentTime - lastTime >= 1000.0) {
 		lastTime = Math.floor(currentTime);
@@ -141,6 +157,7 @@ window.ondevicemotion = function(event) {
 
 // Stores current angles for later interpolation
 window.addEventListener("deviceorientation", function(event) {
+	tick = tick + 1;
 
 	var ang = [];
 	ang["time"] = (performance.now() - task_start) / 1000.0;
