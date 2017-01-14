@@ -64,6 +64,7 @@ function calibrate() {
 }
 
 function ready() {
+		alert("X: " + correctionX + " Y: " + correctionY + " Z: " + correctionZ);
 	state = READY;
 	resetAngles();
 	document.getElementById("actionBtn").value = "Press to start measurement.";
@@ -156,7 +157,7 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#mag_beta").innerHTML = "beta = " + outBeta;
 	document.querySelector("#mag_gamma").innerHTML = "gamma = " + outGamma;
 
-	/*
+	
 	// measurements per second
 	tick = tick + 1;
 
@@ -168,7 +169,7 @@ window.ondevicemotion = function(event) {
 	}    
 	
 
-	*/
+	
 	//}
 }
 
@@ -350,7 +351,7 @@ function startNewMeasurement() {
 
 // stops measurement and clears data
 function resetMeasurement() {
-	stopMeasurement();
+	stopMeasuremesnt();
 	data.length = 0;
 }
 
