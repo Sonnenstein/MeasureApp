@@ -259,8 +259,12 @@ function performCalibration() {
 function addAnglesToData(sigma, rel_points) {
 	if (angles.length < NUM_ANGLES * 2) {
 		alert("Error, not enough measurements. Please try again.")
+		return;
 	}
-	
+	if (angles.rel_points > NUM_ANGLES) {
+		alert("Please reduce relevant points.")
+		return;
+	}
 	var variance = sigma * sigma;
 	
 	var lastJ = 0;
@@ -270,9 +274,9 @@ function addAnglesToData(sigma, rel_points) {
 		
 		// find nearest measurement
 		for (var j = lastJ; j < angles.length; j++) {
-			if (angles[j]["time"] <= data[i]["time"] && data[i]["time"] <= angles[j + 1]["time"]) {
+			if ((angles[j]["time"] <= data[i]["time"]) && (data[i]["time"] <= angles[j + 1]["time"])) {
 				lastJ = j;
-				if (data[i]["time"] - angles[j]["time"] < data[i]["time"] - angles[j + 1]["time"]) {
+				if ((data[i]["time"] - angles[j]["time"]) < (angles[j + 1]["time"] - data[i]["time"])) {
 					closest = j;
 				} else {
 					closest = j+1;
@@ -282,11 +286,13 @@ function addAnglesToData(sigma, rel_points) {
 			break;
 		}
 		
+		alert("HIT CLOSEST");
+		
 		// get relevant angles for fold
 		var hiID = closest + 1;
 		var loID = closest - 1;
 		while(relevantAngles.length < rel_points) {
-			if (data[i]["time"] - angles[loID]["time"] < data[i]["time"] - angles[hiID]["time"]) {
+			if ((data[i]["time"] - angles[loID]["time"]) < (angles[hiID]["time"] - data[i]["time"])) {
 				relevantAngles.push(loID);
 				loID = loID - 1;
 			} else {
@@ -294,6 +300,7 @@ function addAnglesToData(sigma, rel_points) {
 				hiID = hiID + 1;
 			}
 		}
+		alert("HIT RELEVANT");
 		
 		// fold
 		var sum = 0.0;
@@ -312,6 +319,8 @@ function addAnglesToData(sigma, rel_points) {
 		data[i]["alpha"] = data[i]["alpha"] / sum;
 		data[i]["beta"] = data[i]["beta"] / sum;
 		data[i]["gamma"] = data[i]["gamma"] / sum;
+		
+		alert("HIT " + i);
 	}
 }
 
