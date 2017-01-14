@@ -269,7 +269,7 @@ function addAnglesToData(sigma, rel_points) {
 	
 	var lastJ = 0;
 	for (var i = 0; i < data.length; i++) {
-		var closest;
+		var closest = -1;
 		var relevantAngles = [];
 		
 		// find nearest measurement
