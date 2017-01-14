@@ -134,8 +134,6 @@ window.ondevicemotion = function(event) {
 		performCalibration();
 	}
 
-	var currentTime = performance.now() - measurement_start;
-	var outTime = (Math.round(currentTime) / 1000.0);
 	var outAx = (Math.round(ax * 10000) / 10000.0);
 	var outAy = (Math.round(ay * 10000) / 10000.0);
 	var outAz = (Math.round(az * 10000) / 10000.0);
@@ -152,19 +150,23 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#mag_beta").innerHTML = "beta = " + outBeta;
 	document.querySelector("#mag_gamma").innerHTML = "gamma = " + outGamma;
 	
+
+	//}
+}
+
+// Stores current angles for later interpolation
+window.addEventListener("deviceorientation", function(event) {
+	tick = tick + 1;
 	// measurements per second
+	var currentTime = performance.now() - measurement_start;
+	var outTime = (Math.round(currentTime) / 1000.0);
+	
 	if (currentTime - lastTime >= 1000.0) {
 		lastTime = Math.floor(currentTime);
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
 		tick = 0;
 	}    
 	
-	//}
-}
-
-// Stores current angles for later interpolation
-window.addEventListener("deviceorientation", function(event) {
-		tick = tick + 1;
 
 	var ang = [];
 	ang["time"] = (performance.now() - task_start) / 1000;
