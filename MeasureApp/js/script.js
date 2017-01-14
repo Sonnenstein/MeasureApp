@@ -180,10 +180,14 @@ window.addEventListener("deviceorientation", function(event) {
 // Transforms measurements into world space and corrects them according to calibration
 function prepareData() {
 	// get relating angles for acceleration
-	addAnglesToData(USED_SIGMA, REL_ANGLES);
+	// addAnglesToData(USED_SIGMA, REL_ANGLES);
 	
 	for (var i = 0; i < data.length; i++) {
-				
+						
+		data[i]["alpha"] = 0.0;
+		data[i]["beta"] = 0.0;
+		data[i]["gamma"] = 0.0;
+		
 		// transform into world space
 		var vec = [];
 		vec["x"] = data[i]["ax"];
