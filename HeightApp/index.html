@@ -26,13 +26,18 @@
 </head>
 
 <body>
-	<header>
-		<h1>MeasureApp</h1>
-	</header>
+<div data-role="page">
 
-	<!-- Paragraphs for the accelerometer and magnetometer values. -->
-	<div class="main">
-		<p id="x_acc">No accelerometer found.</p>
+  <div data-role="header">
+    <h1>HeightApp</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>I Welcome to my height measurement application!</p>
+  </div>
+  
+  
+  <p id="x_acc">No accelerometer found.</p>
 		<p id="y_acc"></p>
 		<p id="z_acc"></p>
 		
@@ -57,7 +62,15 @@
 		<br/>
 		
 		<input type="button" value="Loading" id="actionBtn" onclick="performAction()" style="width:400px;height:300px;"></button>
-	</div>
+
+  <div data-role="footer">
+    <h1>Footer Text</h1>
+  </div>
+
+</div>
+
+
+		
 	
 </body>
 
