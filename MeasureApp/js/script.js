@@ -304,6 +304,11 @@ function addAnglesToData(sigma, rel_points) {
 		data[i]["alpha"] = 0.0;
 		data[i]["beta"] = 0.0;
 		data[i]["gamma"] = 0.0;
+		
+		if (isNaN(data[i]["alpha"]) || isNaN(data[i]["beta"]) || isNaN(data[i]["gamma"])) {
+			alert("WHAT?");
+		}
+		
 		for (var j = 0; j < relevantAngles; j++) {
 			var fa = Math.exp(-((data[i]["time"] - angles[relevantAngles[i]]["time"]) 
 				* (data[i]["time"] - angles[relevantAngles[i]]["time"])) / (2 * variance));
