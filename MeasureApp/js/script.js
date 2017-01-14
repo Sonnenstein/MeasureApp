@@ -316,6 +316,10 @@ function addAnglesToData(sigma, rel_points) {
 		data[i]["alpha"] = data[i]["alpha"] / sum;
 		data[i]["beta"] = data[i]["beta"] / sum;
 		data[i]["gamma"] = data[i]["gamma"] / sum;
+		
+		if (isNaN(data[i]["alpha"]) || isNaN(data[i]["beta"]) || isNaN(data[i]["gamma"])) {
+			alert("Item is NaN: " + i);
+		}
 	}
 }
 
