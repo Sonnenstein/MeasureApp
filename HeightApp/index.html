@@ -84,44 +84,32 @@
 
 		<br>
 		
-		<div data-role="collapsible" data-collapsed="false">
-			<h1>Accelerometer</h1>
-		<p>
-			<ul data-role="listview" data-inset="true">
-			  <li><p id="x_acc">List Item</p></li>
-			  <li><p id="y_acc">List Item</p></li>
-			  <li><p id="z_acc">List Item</p></li>
-			</ul>
-		</p>
-		</div>
-
-		<br>
-		
-		<br>
-		<p>Magnetometer</p>
-		<br>
-		<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow">
-			<thead>
-				<tr>
-					<th>Axis</th>
-					<th>Angle</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Alpha</td>
-					<td id="mag_alpha">not available</td>
-				</tr>
-				<tr>
-					<td>Beta</td>
-					<td id="mag_beta">not available</td>
-				</tr>
-				<tr>
-					<td>Gamma</td>
-					<td id="mag_gamma">not available</td>
-				</tr>
-			</tbody>
-		</table>
+		<ul data-role="listview">
+			<li>
+			  	<div data-role="collapsible" data-collapsed="false">
+					<h1>Accelerometer</h1>
+					<p>
+						<ul data-role="listview" data-inset="true">
+						  <li><p id="x_acc">X: not available</p></li>
+						  <li><p id="y_acc">Y: not available</p></li>
+						  <li><p id="z_acc">Z: not available</p></li>
+						</ul>
+					</p>
+				</div>
+			</li>
+			<li>
+			  	<div data-role="collapsible" data-collapsed="false">
+					<h1>Magnetometer</h1>
+					<p>
+						<ul data-role="listview" data-inset="true">
+						  <li><p id="mag_alpha">Alpha: not available</p></li>
+						  <li><p id="mag_beta">Beta: not available</p></li>
+						  <li><p id="mag_gamma">Gamma: not available</p></li>
+						</ul>
+					</p>
+				</div>
+			</li>
+		</ul>
 		
 		<br/>    
 		<a href="#main" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all ui-shadow"></a>

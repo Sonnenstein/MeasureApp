@@ -184,9 +184,9 @@ window.addEventListener("deviceorientation", function(event) {
 	var outBeta = (Math.round(beta * 10000) / 10000.0);
 	var outGamma = (Math.round(gamma * 10000) / 10000.0);
 	
-	document.querySelector("#mag_alpha").innerHTML = outAlpha;
-	document.querySelector("#mag_beta").innerHTML = outBeta;
-	document.querySelector("#mag_gamma").innerHTML = outGamma;
+	document.querySelector("#mag_alpha").innerHTML = "Alpha: " + outAlpha + "°";
+	document.querySelector("#mag_beta").innerHTML = "Beta" + outBeta + "°";
+	document.querySelector("#mag_gamma").innerHTML = "Gamma" + outGamma + "°";
 		
 }, true);
 
