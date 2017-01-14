@@ -281,9 +281,9 @@ function addAnglesToData(sigma, rel_points) {
 				} else {
 					closest = j+1;
 				}
+				relevantAngles.push(closest);
+				break;
 			}
-			relevantAngles.push(closest);
-			break;
 		}
 		
 		alert("HIT CLOSEST " + closest);
