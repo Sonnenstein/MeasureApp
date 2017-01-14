@@ -162,6 +162,8 @@ window.addEventListener("deviceorientation", function(event) {
 		if (measurementActive || (angles.length <= NUM_ANGLES))  {
 			angles.push(ang);
 		} else if (tail > 0) {
+			alert(tail);
+			
 			angles.push(ang);
 			tail = tail - 1;
 			if (state == CALIBRATE && tail == 0) {
