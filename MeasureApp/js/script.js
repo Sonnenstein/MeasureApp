@@ -161,9 +161,7 @@ window.addEventListener("deviceorientation", function(event) {
 	if (state != CALCULATE) {
 		if (measurementActive || (angles.length <= NUM_ANGLES))  {
 			angles.push(ang);
-		} else if (tail > 0) {
-			alert(tail);
-			
+		} else if (tail > 0) {		
 			angles.push(ang);
 			tail = tail - 1;
 			if (state == CALIBRATE && tail == 0) {
@@ -182,13 +180,9 @@ window.addEventListener("deviceorientation", function(event) {
 // Transforms measurements into world space and corrects them according to calibration
 function prepareData() {
 	// get relating angles for acceleration
-	// addAnglesToData(USED_SIGMA, REL_ANGLES);
+	addAnglesToData(USED_SIGMA, REL_ANGLES);
 	
 	for (var i = 0; i < data.length; i++) {
-						
-		data[i]["alpha"] = 0.0;
-		data[i]["beta"] = 0.0;
-		data[i]["gamma"] = 0.0;
 		
 		// transform into world space
 		var vec = [];
@@ -238,7 +232,6 @@ function calculateDistance() {
 
 // performs calibration based on measured data
 function performCalibration() {
-	alert("HIT CALIBRATION!")
 	prepareData();
 	
 	var sum_x = 0.0;
