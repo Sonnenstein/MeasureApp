@@ -3,9 +3,8 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>MeasureApp</title>
+	<title>HeightApp</title>
 	<meta name="author" content="Robin">
-	
 	<meta name="description" content="An app to measure heights.">
 
 	<!-- Include meta tag to ensure proper rendering and touch zooming -->
@@ -26,18 +25,24 @@
 </head>
 
 <body>
-<div data-role="page">
+<div data-role="page" id="main">
 
   <div data-role="header">
     <h1>HeightApp</h1>
+	 <div data-role="navbar">
+      <ul>
+        <li><a href="#">Measurements</a></li>
+        <li><a href="#">Sensor Data</a></li>
+      </ul>
+    </div>
   </div>
 
   <div data-role="main" class="ui-content">
     <p>I Welcome to my height measurement application!</p>
-  </div>
-  
-  
-  <p id="x_acc">No accelerometer found.</p>
+	
+	<br>
+	
+	<p id="x_acc">No accelerometer found.</p>
 		<p id="y_acc"></p>
 		<p id="z_acc"></p>
 		
@@ -61,17 +66,50 @@
 		<h1 id="zdist_acc">0.0</h1>
 		<br/>
 		
-		<input type="button" value="Loading" id="actionBtn" onclick="performAction()" style="width:400px;height:300px;"></button>
+		<button class="ui-btn ui-shadow ui-corner-all" id="actionBtn" onclick="performAction()">Loading</button>
+		<br/>
+		
+		<a href="#browserSupport" class="ui-btn">Go to Page Two</a>
+	</div>
+  
+
+  
+  <div data-role="footer">
+    <h1>Footer Text</h1>
+  </div>
+</div>
+
+
+<div data-role="page" id="oldValues">
+  <div data-role="header">
+    <h1>Buttons</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>Goodbye!</p>
+    <a href="#main" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all ui-shadow">Go to Main Page</a>
+	 <button class="ui-btn ui-icon-recycle ui-btn-icon-left">Recycle Button</button>
+  </div>
 
   <div data-role="footer">
     <h1>Footer Text</h1>
   </div>
-
-</div>
-
-
+</div> 
 		
-	
+		
+<div data-role="page" data-dialog="true" id="browserSupport">
+  <div data-role="header">
+    <h1>Browser Support</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>We are sorry to tell you, that this application was not designed to support your browser.
+	It is recommended to use Chrome or Samsung Internet for Android to guarantee the best possible user experience.</p>
+    <a href="#main" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all ui-shadow">Go to Main Page</a>
+  </div>
+</div> 
+
+
 </body>
 
 <script>main()</script>
