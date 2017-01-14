@@ -25,6 +25,7 @@ const NUM_ANGLES = 10;
 // for fold 
 const REL_POINTS = 4;
 const USED_SIGMA = 0.02;
+const MIN_MEASUREMENTS = 20;
 
 var state = -1;
 const INIT = 0;
@@ -203,25 +204,29 @@ function prepareData() {
 
 // trial for z distance
 function calculateDistance() {
+	if (data.length < MIN_MEASUREMENTS) {
+		alert("Please, try again and measure for a longer time.")
+		ready();
+	}
+	
 	prepareData();
     var speed = [];
 
 	alert(data.length);
 
 	speed.push(0.0);
-		
-	for (var i = 1; i < data.length; i++) { // simple trapez rule
-		var interval = (data[i]["time"] - data[i - 1]["time"]);
-		var avgAcceleration = (data[i]["az"] + data[i - 1]["az"]) / 2.0;
-		var newSpeed = speed[i - 1] + avgAcceleration * interval;
+	for (var i = 1; i < (data.length / 2); i++) { // Simpsons rule
+		var interval = (data[2 * i]["time"] - data[2 * i - 2]["time"]);
+		var acc = (data[2 * i]["az"] + 4.0 * data[2 * i - 1]["az"] + data[2 * i - 2]["az"]) / 6.0
+		var newSpeed = speed[i - 1] + acc * interval;
 		speed.push(newSpeed);
 	}             
 	
 	var dist = 0.0;
-	for (var i = 1; i < speed.length; i++) {
-		var interval = (data[i]["time"] - data[i - 1]["time"]);
-		var avgSpeed = (speed[i - 1] + speed[i]) / 2.0;
-		dist = dist + avgSpeed * interval;
+	for (var i = 1; i < (speed.length / 2); i++) { // Simpsons rule
+		var interval = (data[2 * i]["time"] - data[2 * i - 2]["time"]);
+		var spd = (speed[2 * i - 2] + 4 * speed[2 * i - 1] + speed[2 * i]) / 6.0;
+		dist = dist + spd * interval;
 	}
 	
 	document.querySelector("#zdist_acc").innerHTML = "Traveled Z-distance: " + dist;
