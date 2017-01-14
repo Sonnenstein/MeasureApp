@@ -144,8 +144,8 @@ window.ondevicemotion = function(event) {
 	
 	if (currentTime - lastTime >= 1000.0) {
 		lastTime = Math.floor(currentTime);
-		document.querySelector("#tick_acc").innerHTML = "Measurements per Second = " + tick_acc;
-		document.querySelector("#tick_mag").innerHTML = "Measurements per Second = " + tick_mag;
+		document.querySelector("#tick_acc").innerHTML = "Measurements per Second: " + tick_acc;
+		document.querySelector("#tick_mag").innerHTML = "Measurements per Second: " + tick_mag;
 
 		tick_acc = 0;
 		tick_mag = 0;
@@ -157,6 +157,8 @@ window.addEventListener("deviceorientation", function(event) {
 
 	var ang = [];
 	ang["time"] = (performance.now() - task_start) / 1000.0;
+	
+	tick_mag = tick_mag + 1;
 	
 	// angles in system
 	alpha = event.alpha;
@@ -183,8 +185,6 @@ window.addEventListener("deviceorientation", function(event) {
 			angles.push(ang);
 		}
 	}
-	
-	tick_mag = tick_mag + 1;
 	
 	var outAlpha = (Math.round(alpha * 10000) / 10000.0);
 	var outBeta = (Math.round(beta * 10000) / 10000.0);
