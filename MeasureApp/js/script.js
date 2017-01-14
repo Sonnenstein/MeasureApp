@@ -153,7 +153,6 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#mag_gamma").innerHTML = "gamma = " + outGamma;
 	
 	// measurements per second
-	tick = tick + 1;
 	if (currentTime - lastTime >= 1000.0) {
 		lastTime = Math.floor(currentTime);
 		document.querySelector("#tick_acc").innerHTML = "Ticks per Second = " + tick;
@@ -165,7 +164,8 @@ window.ondevicemotion = function(event) {
 
 // Stores current angles for later interpolation
 window.addEventListener("deviceorientation", function(event) {
-	
+		tick = tick + 1;
+
 	var ang = [];
 	ang["time"] = (performance.now() - task_start) / 1000;
 	
@@ -198,6 +198,9 @@ window.addEventListener("deviceorientation", function(event) {
 function prepareData() {
 	for (var i = 0; i < data.length; i++) {
 		
+		// get relating angles for acceleration
+		
+		
 		// transform into world space
 		var vec = [];
 		vec["x"] = data[i]["ax"];
@@ -206,9 +209,15 @@ function prepareData() {
 		vec = transformDeviceToWorld(vec, data[i]["alpha"], data[i]["beta"], data[i]["gamma"]);
 
 		// calibrate
-		data[i]["ax"] = vec["x"] - correctionX;
-		data[i]["ay"] = vec["y"] - correctionY;
-		data[i]["az"] = vec["z"] - correctionZ;
+		if (state != CALIBRATE) {
+			data[i]["ax"] = vec["x"] - correctionX;
+			data[i]["ay"] = vec["y"] - correctionY;
+			data[i]["az"] = vec["z"] - correctionZ;
+		} else { // state == CALIBRATE
+			data[i]["ax"] = vec["x"];
+			data[i]["ay"] = vec["y"];
+			data[i]["az"] = vec["z"];
+		}
 		
 		// normalize time
 		data[i]["time"] = data[i]["time"] - data[0]["time"];
@@ -240,6 +249,8 @@ function calculateDistance() {
 
 // performs calibration based on measured data
 function performCalibration() {
+	// prepareData();
+	
 	var sum_x = 0.0;
 	var sum_y = 0.0;
 	var sum_z = 0.0;
@@ -277,7 +288,7 @@ function performCalibration() {
 // ------------------------------------------------------------
 
 // folds the data with a gaussian distribution to derive acurate angles
-function foldGaussian(arr, sigma) {
+function foldGaussian(arr, sigma, rel_points) {
 	
 }
 
