@@ -198,9 +198,6 @@ function prepareData() {
 			data[i]["ay"] = vec["y"];
 			data[i]["az"] = vec["z"];
 		}
-		
-		// normalize time
-		data[i]["time"] = data[i]["time"] - data[0]["time"];
 	}
 }
 
@@ -208,6 +205,8 @@ function prepareData() {
 function calculateDistance() {
 	prepareData();
     var speed = [];
+
+	alert(data.length);
 
 	speed.push(0.0);
 		
