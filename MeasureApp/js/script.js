@@ -286,12 +286,13 @@ function addAnglesToData(sigma, rel_points) {
 			break;
 		}
 		
-		alert("HIT CLOSEST");
+		alert("HIT CLOSEST " + closest);
 		
 		// get relevant angles for fold
 		var hiID = closest + 1;
 		var loID = closest - 1;
 		while(relevantAngles.length < rel_points) {
+			alert(relevantAngles.length + "  " + rel_points);
 			if ((data[i]["time"] - angles[loID]["time"]) < (angles[hiID]["time"] - data[i]["time"])) {
 				relevantAngles.push(loID);
 				loID = loID - 1;
