@@ -299,6 +299,7 @@ function addAnglesToData(sigma, rel_points) {
 				relevantAngles.push(hiID);
 				hiID = hiID + 1;
 			}
+			alert(relevantAngles.length + "  " + rel_points);
 		}
 		alert("HIT RELEVANT");
 		
