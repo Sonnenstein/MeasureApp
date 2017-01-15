@@ -1,25 +1,14 @@
 .up2 {
 	padding: 0px;
 	margin: 0px;
-	min-height: 35%;
-	max-height: 35%;
+	min-height: 30%;
+	max-height: 30%;
 } 
 
 
 .ms-btn {
-	padding: 0px; 
-	margin: 0px;
 	font-size: 40px;
 	min-height: 35%;
 	max-height: 35%;
-} 
-
-.mn-btn {
-	padding: 0px; 
-	margin: 0px;
-	min-height: 35px;
-	max-height: 35px;
-	font-size: 20px;
-
 } 
 
