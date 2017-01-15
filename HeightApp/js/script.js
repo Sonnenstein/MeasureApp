@@ -14,6 +14,7 @@ var angles = [];
 
 
 // measurement routine
+// -------------------------------------------------------------------------
 window.ondevicemotion = function(event) { 
 	var ax = -event.accelerationIncludingGravity.x;
 	var ay = -event.accelerationIncludingGravity.y;
@@ -36,6 +37,8 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#y_acc").innerHTML = "Y: " + outAy + " m/s";
 	document.querySelector("#z_acc").innerHTML = "Z: " + outAz + " m/s";
 		
+	tick_acc = tick_acc + 1;
+		
 	var currentTime = performance.now() - measurement_start;
 	if (currentTime - lastTime >= 1000.0) {
 		lastTime = Math.floor(currentTime);
@@ -46,3 +49,6 @@ window.ondevicemotion = function(event) {
 		tick_mag = 0;
 	}    
 }
+
+
+// -------------------------------------------------------------------------
