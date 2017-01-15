@@ -19,4 +19,6 @@ $(document).ready(function(){
 	var content = screen - header;
 
 	$(".ui-content").height(content);
+	
+	alert("HIT");
 }); 
