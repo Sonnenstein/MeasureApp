@@ -1,16 +1,15 @@
-/*
-var countries = ['United States', 'Canada', 'Argentina', 'Armenia'];
-var cList = $('ul.mylist')
 
-$.each(countries, function(i)
-{
-    var li = $('<li/>')
-        .addClass('ui-menu-item')
-        .attr('role', 'menuitem')
-        .appendTo(cList);
-    var aaa = $('<a/>')
-        .addClass('ui-all')
-        .text(countries[i])
-        .appendTo(li);
-});
-*/
+
+$(document).ready(function(){
+
+
+	
+	var measurement = [12,13,145,15];
+	for (var i = 0; i < measurement.length; i++) {
+		$("#measurementlist").append("<li><p>" + measurement[i] + " m" + "</p></li>");
+	}
+	$("#measurementlist").refresh;
+	
+	// vmousedown
+	// vmouseup
+}); 
