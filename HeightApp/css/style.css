@@ -5,6 +5,6 @@
 .ms-btn {
 	font-size: 40px;
 	color: red;
-	height: 75%;
-	width: 75%;
+	min-height: 30%;
+	max-height: 30%;
 } 
