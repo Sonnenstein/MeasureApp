@@ -144,8 +144,8 @@ window.ondevicemotion = function(event) {
 	
 	if (currentTime - lastTime >= 1000.0) {
 		lastTime = Math.floor(currentTime);
-		document.querySelector("#tick_acc").innerHTML = "Measurements per Second: " + tick_acc;
-		document.querySelector("#tick_mag").innerHTML = "Measurements per Second: " + tick_mag;
+		document.querySelector("#rate_acc").innerHTML = "Measurements per Second: " + tick_acc;
+		document.querySelector("#rate_mag").innerHTML = "Measurements per Second: " + tick_mag;
 
 		tick_acc = 0;
 		tick_mag = 0;
