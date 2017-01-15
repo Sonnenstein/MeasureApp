@@ -36,24 +36,6 @@ const MEASURE = 3;
 const CALCULATE = 4;
 
 function main() {
-	
-
-	var vec = [];
-
-	vec["x"] = 5.5067;
-
-	vec["y"] = 0.1149;
-
-	vec["z"] = -8.3222;
-
-	vec = transformDeviceToWorld(vec, 58.6352, 359.3405,-33.5376);
-
-	console.log("x: " + vec["x"] + "\n");
-
-	console.log("y: " + vec["y"] + "\n");
-
-	console.log("z: " + vec["z"] + "\n");
-	
 	init();
 }
 
