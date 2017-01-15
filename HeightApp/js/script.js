@@ -119,7 +119,6 @@ window.ondevicemotion = function(event) {
 	document.querySelector("#x_acc").innerHTML = "X: " + outAx + " m/s";
 	document.querySelector("#y_acc").innerHTML = "Y: " + outAy + " m/s";
 	document.querySelector("#z_acc").innerHTML = "Z: " + outAz + " m/s";
-	document.querySelector("#time_acc").innerHTML = outTime;
 	
 	// measurements per second
 	tick_acc = tick_acc + 1;
@@ -173,7 +172,7 @@ window.addEventListener("deviceorientation", function(event) {
 	var outGamma = (Math.round(gamma * 10000) / 10000.0);
 	
 	document.querySelector("#mag_alpha").innerHTML = "Alpha: " + outAlpha + "°";
-	document.querySelector("#mag_beta").innerHTML = "Beta: " + outBeta + "°";
+	document.querySelector("#mag_beta").innerHTML = "Beta: " + (outBeta - 360) + "°";
 	document.querySelector("#mag_gamma").innerHTML = "Gamma: " + outGamma + "°";
 		
 }, true);
@@ -217,9 +216,6 @@ function calculateDistance() {
 	prepareData();
     var speed = [];
 
-	alert(data.length);
-
-	
 	speed.push(0.0);
 	/*
 	for (var i = 1; i < (data.length / 2); i++) { // Simpsons rule
