@@ -4,7 +4,7 @@ var task_start = performance.now();
 // for measurements per second
 var tick_acc = 0;
 var tick_mag = 0;
-var lastTime = 0.0;
+var lastTime = task_start;
 
 
 // for measurement routine
@@ -39,8 +39,9 @@ window.ondevicemotion = function(event) {
 		
 	tick_acc = tick_acc + 1;
 		
-	if (performance.now() - lastTime >= 1000.0) {
-		lastTime = Math.floor(currentTime);
+	var currentTime = performance.now();
+	if (currentTime - lastTime >= 1000.0) {
+		lastTime = currentTime;
 		document.querySelector("#rate_acc").innerHTML = "Measurements per Second: " + tick_acc;
 		document.querySelector("#rate_mag").innerHTML = "Measurements per Second: " + tick_mag;
 
