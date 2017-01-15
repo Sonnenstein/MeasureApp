@@ -4,9 +4,8 @@ var state = -1;
 const INIT = 0;
 const CALIBRATE = 1;
 const READY = 2;
-const MEASURE = 3;
+const MEASURING = 3;
 const CALCULATE = 4;
-
 
 $(document).ready(function(){
 	calibrateScreen();
@@ -19,6 +18,8 @@ function calibrateScreen() {
 	var content = screen - header;
 	$(".ui-content").height(content);
 }
+
+// -----------------------------------------------------------------------------------
 
 function init() {
 	state = INIT;
@@ -34,9 +35,22 @@ function calibrate() {
 }
 
 function ready() {
-	alert("X: " + correctionX + " Y: " + correctionY + " Z: " + correctionZ);
 	state = READY;
-	document.getElementById("actionBtn").value = "Start Measurement";
+	document.querySelector("#desc").innerHTML  = "The device is now ready for a new measurement.";	
+	ddocument.querySelector("#actionBtn").innerHTML = "Start Measurement";
+}
+
+function measure() {
+	state = MEASURING;
+	startNewMeasurement();
+	document.querySelector("#desc").innerHTML  = "Now measuring. Press again to stop measurement.";
+	document.querySelector("#actionBtn").innerHTML = "Stop Measurement";
+}
+
+function calculate() {
+	state = CALCULATE;
+	stopMeasurement();
+	calculateDistance();
 }
 
 
@@ -48,7 +62,7 @@ function performAction() {
 			break;
 		case READY: measure();
 			break;
-		case MEASURE: calculate();
+		case MEASURING: calculate();
 			break;
 		case CALCULATE: document.getElementById("actionBtn").value = "Please wait";
 			break;

@@ -158,3 +158,28 @@ function prepareData() {
 		}
 	}
 }
+
+// height calculation
+// -------------------------------------------------------------------------
+function calculateDistance() {
+	prepareData();
+    var speed = [];
+	speed.push(0.0);
+	
+	for (var i = 1; i < data.length; i++) { // simple trapez rule
+		var interval = (data[i]["time"] - data[i - 1]["time"]);
+		var avgAcceleration = (data[i]["az"] + data[i - 1]["az"]) / 2.0;
+		var newSpeed = speed[i - 1] + avgAcceleration * interval;
+		speed.push(newSpeed);
+	}             
+
+	var dist = 0.0;
+	for (var i = 1; i < speed.length; i++) {
+		var interval = (data[i]["time"] - data[i - 1]["time"]);
+		var avgSpeed = (speed[i - 1] + speed[i]) / 2.0;
+		dist = dist + avgSpeed * interval;
+	}
+	
+	document.querySelector("#measuredHeight").innerHTML = "Traveled Z-distance: " + dist + " m";
+	ready();
+}
