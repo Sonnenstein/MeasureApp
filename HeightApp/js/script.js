@@ -122,6 +122,9 @@ window.ondevicemotion = function(event) {
 	
 	// measurements per second
 	tick_acc = tick_acc + 1;
+	if (tick_acc > 100) {
+		alert("TICKS");
+	}
 	
 	if (currentTime - lastTime >= 1000.0) {
 		lastTime = Math.floor(currentTime);
