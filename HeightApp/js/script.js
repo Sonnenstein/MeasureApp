@@ -39,8 +39,7 @@ window.ondevicemotion = function(event) {
 		
 	tick_acc = tick_acc + 1;
 		
-	var currentTime = performance.now() - measurement_start;
-	if (currentTime - lastTime >= 1000.0) {
+	if (performance.now() - lastTime >= 1000.0) {
 		lastTime = Math.floor(currentTime);
 		document.querySelector("#rate_acc").innerHTML = "Measurements per Second: " + tick_acc;
 		document.querySelector("#rate_mag").innerHTML = "Measurements per Second: " + tick_mag;
