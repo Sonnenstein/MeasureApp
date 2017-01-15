@@ -7,14 +7,19 @@ var tick_mag = 0;
 var lastTime = task_start;
 
 
+
 // for measurement routine
 var measurementActive = false;
 var data = [];
-var angles = [];
 
+// last measured angles
+var alpha = 0.0;
+var beta = 0.0;
+var gamma = 0.0;
 
 // measurement routine
 // -------------------------------------------------------------------------
+// acceleration
 window.ondevicemotion = function(event) { 
 	var ax = -event.accelerationIncludingGravity.x;
 	var ay = -event.accelerationIncludingGravity.y;
@@ -26,6 +31,9 @@ window.ondevicemotion = function(event) {
 		newItem["ax"] = ax;
 		newItem["ay"] = ay;
 		newItem["az"] = az;
+		newItem["alpha"] = alpha;
+		newItem["beta"] = beta;
+		newItem["gamma"] = gamma;
 		data.push(newItem);
 	}
 
@@ -50,5 +58,20 @@ window.ondevicemotion = function(event) {
 	}    
 }
 
-
+// angles
+window.addEventListener("deviceorientation", function(event) {
+	tick_mag = tick_mag + 1;
+	
+	alpha = event.alpha;
+	beta = event.beta;
+	gamma = -event.gamma;
+	
+	var outAlpha = (Math.round(alpha * 10000) / 10000.0);
+	var outBeta = (Math.round(beta * 10000) / 10000.0);
+	var outGamma = (Math.round(gamma * 10000) / 10000.0);
+	
+	document.querySelector("#mag_alpha").innerHTML = "Alpha: " + outAlpha + "°";
+	document.querySelector("#mag_beta").innerHTML = "Beta: " + outBeta + "°";
+	document.querySelector("#mag_gamma").innerHTML = "Gamma: " + outGamma + "°";	
+}, true);
 // -------------------------------------------------------------------------
