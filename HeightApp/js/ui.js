@@ -17,8 +17,6 @@ $(document).ready(function(){
 	var screen = $.mobile.getScreenHeight();
 	var header = $(".ui-header").hasClass("ui-header-fixed") ? $(".ui-header").outerHeight()  - 1 : $(".ui-header").outerHeight();
 	var content = screen - header;
-
 	$(".ui-content").height(content);
 	
-	alert("HIT");
 }); 
