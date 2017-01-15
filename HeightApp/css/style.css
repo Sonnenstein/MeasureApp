@@ -1,10 +1,25 @@
-* {
-    box-sizing: border-box;
-}
+.up1 {
+	min-height: 2%;
+	max-height: 2%;
+	background:#ff00ff;
+} 
+
+.up2 {
+	min-height: 35%;
+	max-height: 35%;
+	background:#ff00aa;
+} 
+
+.up3 {
+	min-height: 25%;
+	max-height: 25%;
+	background:#ffffaa;
+} 
 
 .ms-btn {
 	font-size: 40px;
 	color: red;
-	min-height: 30%;
-	max-height: 30%;
+	min-height: 38%;
+	max-height: 38%;
+	background:#0000aa;
 } 
