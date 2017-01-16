@@ -7,25 +7,17 @@
 	<meta name="author" content="Robin">
 	<meta name="description" content="An app to measure heights.">
 
-	<!-- Include meta tag to ensure proper rendering and touch zooming -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-	<!-- Include the jQuery library -->
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-	<!-- Include the jQuery Mobile library -->
 	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-	<!-- Include jQuery Mobile stylesheets -->
 	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 	<link rel="stylesheet" href="css/style.css" title="main-template">
-	
 	
 	<script src="js/rotation.js"></script>
 	<script src="js/script.js"></script>
 	<script src="js/ui.js"></script>
-
 </head>
 
 <body>
@@ -36,13 +28,10 @@
   </div>
 
   <div data-role="main" class="ui-content">
-		
 		<div class="up2">
 			<p id="desc">I Welcome to my height measurement application!</p>
 		</div>
-		
 		<p id="measuredHeight">0.0</p>
-			
 		<div class="ui-grid-a">
 			<div class="ui-block-a">
 				<a href="#measurements" id="measureBtn" class="ui-btn ui-corner-all ui-shadow">Measurements</a><br>
@@ -51,8 +40,6 @@
 				<a href="#sensor" id="sensorBtn" class="ui-btn ui-corner-all ui-shadow">Sensor Data</a><br>
 			</div>
 		</div>			
-
-			
 		<button class="ui-btn ui-shadow ui-corner-all ms-btn" id="actionBtn" onclick="performAction()">Loading</button>
 	</div>
 </div>
