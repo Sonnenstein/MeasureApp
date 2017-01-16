@@ -26,18 +26,17 @@ function calibrateScreen() {
 
 function listMeasurments() {
 	document.querySelector("#measurementlist").innerHTML = "";
+	
 	if (measurements.length > 0) {
 		var avg = 0.0;
 		for (var i = 0; i < measurements.length; i++) {
 			avg = avg + measurements[i];
-			var outDist = (Math.round(measurements[i] * 10000) / 10000.0);
-			$("#measurementlist").append("<li><p>" + outDist + " m" + "</p></li>");
+			$("#measurementlist").append("<li><p>" + measurements[i] + " m" + "</p></li>");
 		}		
 		var outAvg = (Math.round((avg / measurements.length) * 10000) / 10000.0);
 		document.querySelector("#average_mes").innerHTML = outAvg + " m";
 	} else {
 		$("#measurementlist").append("<li><p>No measurments available</p></li>");
-
 		document.querySelector("#average_mes").innerHTML = "0.0 m";
 	}
 	
@@ -56,6 +55,7 @@ function switchToMain() {
 }
 
 function switchToMeasurements() {
+	$('#measurementlist').listview('refresh');
 	page = MEASUREMENTS;
 }
 

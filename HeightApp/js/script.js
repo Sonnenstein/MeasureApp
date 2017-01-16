@@ -180,9 +180,9 @@ function calculateDistance() {
 		var avgSpeed = (speed[i - 1] + speed[i]) / 2.0;
 		dist = dist + avgSpeed * interval;
 	}
-	dist = -dist;
+	var outDist = -1 *  (Math.round(dist * 10000) / 10000.0);
 	
-	measurements.push[dist];
-	document.querySelector("#measuredHeight").innerHTML = "Traveled Z-distance: " + dist + " m";
+	measurements.push[outDist];
+	document.querySelector("#measuredHeight").innerHTML = "Height: " + outDist + " m";
 	ready();
 }
