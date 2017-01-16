@@ -34,10 +34,10 @@
 		<p id="measuredHeight">0.0</p>
 		<div class="ui-grid-a">
 			<div class="ui-block-a">
-				<a href="#measurements" id="measureBtn" class="ui-btn ui-corner-all ui-shadow">Measurements</a><br>
+				<a href="#measurements" id="measureBtn" class="ui-btn ui-corner-all ui-shadow" onclick="switchToMeasurements()">Measurements</a><br>
 			</div>
 			<div class="ui-block-b">
-				<a href="#sensor" id="sensorBtn" class="ui-btn ui-corner-all ui-shadow">Sensor Data</a><br>
+				<a href="#sensor" id="sensorBtn" class="ui-btn ui-corner-all ui-shadow" onclick="switchToSensors()">Sensor Data</a><br>
 			</div>
 		</div>			
 		<button class="ui-btn ui-shadow ui-corner-all ms-btn" id="actionBtn" onclick="performAction()">Loading</button>
@@ -51,23 +51,16 @@
 	</div>
 	
 	<div data-role="main" class="ui-content">
-		<button class="ui-btn ui-icon-recycle ui-btn-icon-left  ui-shadow">Delete Measurements</button>
+		<button class="ui-btn ui-icon-recycle ui-btn-icon-left  ui-shadow" onclick="deleteMeasurments()">Delete Measurements</button>
 
 		<h3>Average</h3>
 		<ul data-role="listview" data-inset="true">
-			<li><p id="average_mes">0.0m</p></li>
+			<li><p id="average_mes">0.0 m</p></li>
 		</ul>
 		<h3>Measurements</h3>
-		<ol id="measurementlist" data-role="listview" data-inset="true">
-			<li><p>Measurements per Second: not available</p></li>
-			<li><p>X: not available</p></li>
-			<li><p>Y: not available</p></li>
-			<li><p>Z: not available</p></li>
-		</ol>
+		<ol id="measurementlist" data-role="listview" data-inset="true"></ol>
 		
-		
-		<a href="#main" class="ui-btn ui-btn-inline ui-icon-back ui-btn-icon-left ui-corner-all ui-shadow">Return</a>
-		
+		<a href="#main" class="ui-btn ui-btn-inline ui-icon-back ui-btn-icon-left ui-corner-all ui-shadow" onclick="switchToMain()">Return</a>
 	</div>
 </div> 
 		
@@ -114,7 +107,7 @@
 
 		<br/>
 		<br/>    
-		<a href="#main" class="ui-btn ui-btn-inline ui-icon-back ui-btn-icon-left ui-corner-all ui-shadow">Return</a>
+		<a href="#main" class="ui-btn ui-btn-inline ui-icon-back ui-btn-icon-left ui-corner-all ui-shadow" onclick="switchToMain()">Return</a>
 	</div>
 </div> 
 	
@@ -127,7 +120,7 @@
   <div data-role="main" class="ui-content">
     <p>We are sorry to tell you, that this application was not designed to support your browser.
 	It is recommended to use Chrome or Samsung Internet for Android to guarantee the best possible user experience.</p>
-	<a href="#main" class="ui-btn ui-btn-inline ui-icon-back ui-btn-icon-left ui-corner-all ui-shadow">Return</a>
+	<a href="#main" class="ui-btn ui-btn-inline ui-icon-back ui-btn-icon-left ui-corner-all ui-shadow" onclick="switchToMain()">Return</a>
   </div>
 </div> 
 

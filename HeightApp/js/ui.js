@@ -1,3 +1,8 @@
+// current open page
+var page = -1;
+const MAIN = 0;
+const MEASUREMENTS = 1;
+const SENSORS = 2;
 
 // current system state
 var state = -1;
@@ -19,12 +24,51 @@ function calibrateScreen() {
 	$(".ui-content").height(content);
 }
 
+function listMeasurments() {
+	document.querySelector("#measurementlist").innerHTML = "";
+	if (measurements.length > 0) {
+		var avg = 0.0;
+		for (var i = 0; i < measurements.length; i++) {
+			avg = avg + measurements[i];
+			var outDist = (Math.round(measurements[i] * 10000) / 10000.0);
+			$("#measurementlist").append("<li><p>" + outDist + " m" + "</p></li>");
+		}		
+		var outAvg = (Math.round((avg / measurements.length) * 10000) / 10000.0);
+		document.querySelector("#average_mes").innerHTML = outAvg + " m";
+	} else {
+		$("#measurementlist").append("<li><p>No measurments available</p></li>");
+
+		document.querySelector("#average_mes").innerHTML = "0.0 m";
+	}
+	
+	if (page == MEASUREMENTS) {
+		$('#measurementlist').listview('refresh');
+	}
+}
+
+function deleteMeasurments() {
+	measurements.length = 0;
+	listMeasurments();
+}
+
+function switchToMain() {
+	page = MAIN;
+}
+
+function switchToMeasurements() {
+	page = MEASUREMENTS;
+}
+
+function switchToSensors() {
+	page = SENSORS;
+}
 // -----------------------------------------------------------------------------------
 
 function init() {
 	state = INIT;
+	listMeasurments();
 	document.querySelector("#desc").innerHTML  = "Please hold still and press button to calibrate your device.";
-	document.querySelector("#actionBtn").innerHTML = "Calibrate Device";
+	document.querySelector("#actionBtn").innerHTML = "Calibrate";
 }
 
 function calibrate() {
@@ -36,15 +80,16 @@ function calibrate() {
 
 function ready() {
 	state = READY;
+	listMeasurments();
 	document.querySelector("#desc").innerHTML  = "The device is now ready for a new measurement.";	
-	ddocument.querySelector("#actionBtn").innerHTML = "Start Measurement";
+	document.querySelector("#actionBtn").innerHTML = "Start";
 }
 
 function measure() {
 	state = MEASURING;
 	startNewMeasurement();
 	document.querySelector("#desc").innerHTML  = "Now measuring. Press again to stop measurement.";
-	document.querySelector("#actionBtn").innerHTML = "Stop Measurement";
+	document.querySelector("#actionBtn").innerHTML = "Stop";
 }
 
 function calculate() {
@@ -75,15 +120,7 @@ function performAction() {
 
 
 /*
-	var measurement = [12,13,145,15];
-	for (var i = 0; i < measurement.length; i++) {
-		$("#measurementlist").append("<li><p>" + measurement[i] + " m" + "</p></li>");
-	}
-	
-	$("#measurementlist").empty();
-		for (var i = 0; i < measurement.length; i++) {
-		$("#measurementlist").append("<li><p>" + measurement[i] + " m" + "</p></li>");
-	}
+
 	// vmousedown
 	// vmouseup
 

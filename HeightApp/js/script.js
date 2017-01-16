@@ -9,6 +9,7 @@ var lastTime = task_start;
 // for measurement routine
 var measurementActive = false;
 var data = [];
+var measurements = [];
 
 // last measured angles
 var alpha = 0.0;
@@ -179,7 +180,9 @@ function calculateDistance() {
 		var avgSpeed = (speed[i - 1] + speed[i]) / 2.0;
 		dist = dist + avgSpeed * interval;
 	}
+	dist = -dist;
 	
+	measurements.push[dist];
 	document.querySelector("#measuredHeight").innerHTML = "Traveled Z-distance: " + dist + " m";
 	ready();
 }
