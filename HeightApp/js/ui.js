@@ -26,14 +26,14 @@ function calibrateScreen() {
 
 function listMeasurments() {
 	document.querySelector("#measurementlist").innerHTML = "";
-	
-	if (measurements.length > 0) {
+
+	if (measurementData.length > 0) {
 		var avg = 0.0;
-		for (var i = 0; i < measurements.length; i++) {
-			avg = avg + measurements[i];
-			$("#measurementlist").append("<li><p>" + measurements[i] + " m" + "</p></li>");
+		for (var i = 0; i < measurementData.length; i++) {
+			avg = avg + measurementData[i];
+			$("#measurementlist").append("<li><p>" + measurementData[i] + " m" + "</p></li>");
 		}		
-		var outAvg = (Math.round((avg / measurements.length) * 10000) / 10000.0);
+		var outAvg = (Math.round((avg / measurementData.length) * 10000) / 10000.0);
 		document.querySelector("#average_mes").innerHTML = outAvg + " m";
 	} else {
 		$("#measurementlist").append("<li><p>No measurments available</p></li>");
@@ -46,7 +46,7 @@ function listMeasurments() {
 }
 
 function deleteMeasurments() {
-	measurements.length = 0;
+	measurementData.length = 0;
 	listMeasurments();
 }
 

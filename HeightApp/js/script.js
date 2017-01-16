@@ -9,7 +9,7 @@ var lastTime = task_start;
 // for measurement routine
 var measurementActive = false;
 var data = [];
-var measurements = [];
+var measurementData = [];
 
 // last measured angles
 var alpha = 0.0;
@@ -182,7 +182,7 @@ function calculateDistance() {
 	}
 	var outDist = -1 *  (Math.round(dist * 10000) / 10000.0);
 	
-	measurements.push[outDist];
+	measurementData.push(outDist);
 	document.querySelector("#measuredHeight").innerHTML = "Height: " + outDist + " m";
 	ready();
 }
