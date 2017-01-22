@@ -17,8 +17,7 @@ var beta = 0.0;
 var gamma = 0.0;
 
 var displacement_tick = 0;
-var displacement_mag = 0.0;
-
+var displacement = 0.0;
 // system calibration
 var correctionX = 0.0;
 var correctionY = 0.0;
