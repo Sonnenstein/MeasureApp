@@ -11,10 +11,11 @@ const CALIBRATE = 1;
 const READY = 2;
 const MEASURING = 3;
 const CALCULATE = 4;
+const WELCOME = 5;
 
 $(document).ready(function(){
 	calibrateScreen();
-	init();
+	welcome();
 }); 
 
 function calibrateScreen() {
@@ -64,9 +65,15 @@ function switchToSensors() {
 }
 // -----------------------------------------------------------------------------------
 
+function welcome() {
+	state = WELCOME;
+	listMeasurments();
+	document.querySelector("#desc").innerHTML  = "Please hold your device at any time in an <b><span style='color:#90ee90;'>even</span></b> position!";
+	document.querySelector("#actionBtn").innerHTML = "Continue";
+}
+
 function init() {
 	state = INIT;
-	listMeasurments();
 	document.querySelector("#desc").innerHTML  = "Please hold still and press button to calibrate your device.";
 	document.querySelector("#actionBtn").innerHTML = "Calibrate";
 }
@@ -101,6 +108,8 @@ function calculate() {
 
 function performAction() {
 	switch (state) {
+		case WELCOME: init();
+			break;
 		case INIT: calibrate();
 			break;
 		case CALIBRATE: document.getElementById("actionBtn").value = "Please wait";
