@@ -13,6 +13,8 @@ const MEASURING = 3;
 const DISPLAY = 4;
 const WELCOME1 = 5;
 const WELCOME2 = 6;
+const WELCOME3 = 7;
+
 
 $(document).ready(function(){
 	calibrateScreen();
@@ -75,13 +77,20 @@ function welcome1() {
 
 function welcome2() {
 	state = WELCOME2;
-	document.querySelector("#desc").innerHTML  = "You will be able to perform height measurements by moving your device up and down.";
+	document.querySelector("#desc").innerHTML  = "You will be able to perform height measurements by either moving your device up or down.";
 	document.querySelector("#actionBtn").innerHTML = "Continue";
 }
 
+function welcome3() {
+	state = WELCOME3;
+	document.querySelector("#desc").innerHTML  = "To measure put your device at the top or button end of your wished height press start and move it to the other end.";
+	document.querySelector("#actionBtn").innerHTML = "Continue";
+}
+
+
 function init() {
 	state = INIT;
-	document.querySelector("#desc").innerHTML  = "Hold still and press button to calibrate your device.";
+	document.querySelector("#desc").innerHTML  = "Now please hold still and press the button to calibrate your device.";
 	document.querySelector("#actionBtn").innerHTML = "Calibrate";
 }
 
@@ -94,7 +103,7 @@ function calibrate() {
 
 function ready() {
 	state = READY;
-	document.querySelector("#desc").innerHTML  = "The device is now ready for a new measurement.";	
+	document.querySelector("#desc").innerHTML  = "The device is ready. Hold it at the starting point of your wished measurement.";	
 	document.querySelector("#actionBtn").innerHTML = "Start";	
 }
 
@@ -119,7 +128,9 @@ function performAction() {
 	switch (state) {
 		case WELCOME1: welcome2();
 			break;
-		case WELCOME2: init();
+		case WELCOME2: welcome3();
+			break;
+		case WELCOME3: init();
 			break;
 		case INIT: calibrate();
 			break;
