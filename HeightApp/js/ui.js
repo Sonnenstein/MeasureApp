@@ -94,14 +94,14 @@ function calibrate() {
 
 function ready() {
 	state = READY;
-	document.getElementById("#actionBtn").onclick = function() {};
+	document.querySelector("#actionBtn").onclick = function() {};
 	document.querySelector("#desc").innerHTML  = "The device is now ready for a new measurement.";	
 	document.querySelector("#actionBtn").innerHTML = "Start";
 	
-	document.getElementById("#actionBtn").onmousedown = function() {
+	document.querySelector("#actionBtn").onmousedown = function() {
 		performAction();
 	};
-	document.getElementById("#actionBtn").onmouseup = function() {
+	document.querySelector("#actionBtn").onmouseup = function() {
 		performAction();
 	};
 	
@@ -116,11 +116,11 @@ function measure() {
 
 function display() {
 	state = DISPLAY;
-	document.getElementById("#actionBtn").onclick = function() {
+	document.querySelector("#actionBtn").onclick = function() {
 		performAction();
 	}
-	document.getElementById("#actionBtn").onmousedown = function() {};
-	document.getElementById("#actionBtn").onmouseup = function() {};
+	document.querySelector("#actionBtn").onmousedown = function() {};
+	document.querySelector("#actionBtn").onmouseup = function() {};
 	
 	stopMeasurement();
 	calculateDistance();
