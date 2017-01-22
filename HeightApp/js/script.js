@@ -209,5 +209,4 @@ function calculateDistance() {
 	measurementData.push(outDist);
 	document.querySelector("#measuredHeight").innerHTML = "Height: " + outDist + " m";
 	document.querySelector("#measuredHeight").style.backgroundColor  =  "#f9f9f9";
-	ready();
 }

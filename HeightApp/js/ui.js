@@ -94,7 +94,6 @@ function calibrate() {
 
 function ready() {
 	state = READY;
-	listMeasurments();
 	document.querySelector("#desc").innerHTML  = "The device is now ready for a new measurement.";	
 	document.querySelector("#actionBtn").innerHTML = "Start";
 }
@@ -110,6 +109,7 @@ function display() {
 	state = DISPLAY;
 	stopMeasurement();
 	calculateDistance();
+	listMeasurments();
 	document.querySelector("#desc").innerHTML  = "Press button to prepare device for a new measurement.";	
 	document.querySelector("#actionBtn").innerHTML = "Prepare";
 }
@@ -129,7 +129,7 @@ function performAction() {
 			break;
 		case MEASURING: display();
 			break;
-		case DISPLAY: document.getElementById("actionBtn").value = "Please wait";
+		case DISPLAY: ready();
 			break;
 		default: alert("System is in an invalid state: " + state + ". Please restart application.");
 			break;
