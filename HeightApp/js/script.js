@@ -18,6 +18,7 @@ var gamma = 0.0;
 
 var displacement_tick = 0;
 var displacement = 0.0;
+
 // system calibration
 var correctionX = 0.0;
 var correctionY = 0.0;
@@ -88,9 +89,7 @@ window.addEventListener("deviceorientation", function(event) {
 
 	displacement_tick = displacement_tick + 1;
 	displacement = displacement + Math.sqrt((beta * beta) + (gamma * gamma));
-	alert(displacement_tick);
 	if (displacement_tick >= 5) {
-		alert("HIT");
 		displacement = displacement / 5.0;
 		if (displacement < 10.0) {
 			document.querySelector("#measuredHeight").innerHTML = "Even";
