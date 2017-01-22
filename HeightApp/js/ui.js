@@ -75,6 +75,7 @@ function welcome1() {
 	document.querySelector("#actionBtn").innerHTML = "Continue";
 	
 	var isChrome = !!window.chrome && !!window.chrome.webstore;
+		document.querySelector("#desc").innerHTML  = isChrome;
 	if (isChrome) {
 		document.querySelector("#actionBtn").innerHTML = "CHROME";
 	} else {
