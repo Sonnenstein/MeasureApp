@@ -16,7 +16,11 @@ const WELCOME2 = 6;
 const WELCOME3 = 7;
 
 
-$(document).ready(function(){
+$(document).ready(function() {
+	var isChrome = !!window.chrome && !!window.chrome.webstore;
+	if (isChrome) {
+		alert("Found Chrome!");
+	} 
 	calibrateScreen();
 	welcome1();
 }); 
