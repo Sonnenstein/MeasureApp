@@ -69,7 +69,7 @@ function switchToSensors() {
 function welcome1() {
 	state = WELCOME1;
 	listMeasurments();
-	document.querySelector("#desc").innerHTML  = "Please hold your device at any time in an <b><span style='color:#90ee90;'>even</span></b> position!";
+	document.querySelector("#desc").innerHTML  = "Please hold your device at <b> any time </b> in an <b><span style='color:#90ee90;'>even</span></b> position!";
 	document.querySelector("#actionBtn").innerHTML = "Continue";
 }
 
@@ -81,13 +81,13 @@ function welcome2() {
 
 function init() {
 	state = INIT;
-	document.querySelector("#desc").innerHTML  = "Please hold still and press button to calibrate your device.";
+	document.querySelector("#desc").innerHTML  = "Hold still and press button to calibrate your device.";
 	document.querySelector("#actionBtn").innerHTML = "Calibrate";
 }
 
 function calibrate() {
 	state = CALIBRATE;
-	document.querySelector("#desc").innerHTML  = "Please hold still and wait while your device is calibrating.";	
+	document.querySelector("#desc").innerHTML  = "Please wait...";	
 	document.querySelector("#actionBtn").innerHTML = "Now Calibrating";
 	startNewMeasurement();
 }
