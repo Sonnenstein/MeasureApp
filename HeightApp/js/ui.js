@@ -20,7 +20,9 @@ $(document).ready(function() {
 	var isChrome = !!window.chrome && !!window.chrome.webstore;
 	if (isChrome) {
 		alert("Found Chrome!");
-	} 
+	} else {
+		alert("Not Chrome!");
+	}
 	calibrateScreen();
 	welcome1();
 }); 
