@@ -87,13 +87,13 @@ window.addEventListener("deviceorientation", function(event) {
 	var displacement = Math.sqrt(beta * beta + gamma * gamma);
 	if (displacement < 10.0) {
 		document.querySelector("#measuredHeight").innerHTML = "Even";
-		document.getElementById("#measuredHeight").style.backgroundColor  = "#90ee90";
+		document.querySelector("#measuredHeight").style.backgroundColor  = "#90ee90";
 	} else if (displacement <  20.0) {
 		document.querySelector("#measuredHeight").innerHTML = "Uneven";
-		document.getElementById("#measuredHeight").style.backgroundColor = "yellow";
+		document.querySelector("#measuredHeight").style.backgroundColor = "yellow";
 	} else {
 		document.querySelector("#measuredHeight").innerHTML = "Uneven";
-		document.getElementById("#measuredHeight").style.backgroundColor  = "F75D59";
+		document.querySelector("#measuredHeight").style.backgroundColor  = "F75D59";
 	}
 }, true);
 
