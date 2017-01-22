@@ -89,8 +89,8 @@ window.addEventListener("deviceorientation", function(event) {
 
 	displacement_tick = displacement_tick + 1;
 	displacement = displacement + Math.sqrt((beta * beta) + (gamma * gamma));
-	if (displacement_tick == 5) {
-		displacement = displacement / 5
+	if (displacement_tick >= 5) {
+		displacement = displacement / 5.0;
 		if (displacement < 10.0) {
 			document.querySelector("#measuredHeight").innerHTML = "Even";
 			document.querySelector("#measuredHeight").style.backgroundColor  = "#90ee90"; // lightgreen
