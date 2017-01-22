@@ -19,11 +19,8 @@
 	font-size:20px;
 }
 
-.status {
-	background-color:#F75D59;
-}
-
 .measurement {
+	background-color:#F75D59;
 	padding-top:10px;
 	padding-bottom:10px;
 	text-align:center;

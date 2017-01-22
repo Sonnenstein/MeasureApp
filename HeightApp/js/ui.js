@@ -11,11 +11,12 @@ const CALIBRATE = 1;
 const READY = 2;
 const MEASURING = 3;
 const CALCULATE = 4;
-const WELCOME = 5;
+const WELCOME1 = 5;
+const WELCOME2 = 6;
 
 $(document).ready(function(){
 	calibrateScreen();
-	welcome();
+	welcome1();
 }); 
 
 function calibrateScreen() {
@@ -65,10 +66,16 @@ function switchToSensors() {
 }
 // -----------------------------------------------------------------------------------
 
-function welcome() {
-	state = WELCOME;
+function welcome1() {
+	state = WELCOME1;
 	listMeasurments();
 	document.querySelector("#desc").innerHTML  = "Please hold your device at any time in an <b><span style='color:#90ee90;'>even</span></b> position!";
+	document.querySelector("#actionBtn").innerHTML = "Continue";
+}
+
+function welcome2() {
+	state = WELCOME2;
+	document.querySelector("#desc").innerHTML  = "You will be able to perform height measurements by moving your device up and down.";
 	document.querySelector("#actionBtn").innerHTML = "Continue";
 }
 
@@ -108,7 +115,9 @@ function calculate() {
 
 function performAction() {
 	switch (state) {
-		case WELCOME: init();
+		case WELCOME1: welcome2();
+			break;
+		case WELCOME2: init();
 			break;
 		case INIT: calibrate();
 			break;
