@@ -94,8 +94,17 @@ function calibrate() {
 
 function ready() {
 	state = READY;
+	document.getElementById("#actionBtn").onclick = function() {};
 	document.querySelector("#desc").innerHTML  = "The device is now ready for a new measurement.";	
 	document.querySelector("#actionBtn").innerHTML = "Start";
+	
+	document.getElementById("#actionBtn").vmousedown = function() {
+		performAction();
+	};
+	document.getElementById("#actionBtn").vmouseup = function() {
+		performAction();
+	};
+	
 }
 
 function measure() {
@@ -107,6 +116,12 @@ function measure() {
 
 function display() {
 	state = DISPLAY;
+	document.getElementById("#actionBtn").onclick = function() {
+		performAction();
+	}
+	document.getElementById("#actionBtn").vmousedown = function() {};
+	document.getElementById("#actionBtn").vmouseup = function() {};
+	
 	stopMeasurement();
 	calculateDistance();
 	listMeasurments();
