@@ -1,8 +1,8 @@
 .up {
 	padding: 0px;
 	margin: 0px;
-	min-height: 30%;
-	max-height: 30%;
+	min-height: 25%;
+	max-height: 25%;
 } 
 
 
@@ -15,3 +15,17 @@
 	max-height: 35%;
 } 
 
+.description {
+	font-size:24px;
+}
+
+.status {
+	background-color:#F75D59;
+}
+
+.measurement {
+	padding-top:10px;
+	padding-bottom:10px;
+	text-align:center;
+	font-size:40px;
+}

@@ -90,7 +90,7 @@ window.addEventListener("deviceorientation", function(event) {
 	} else if (displacement <  20.0) {
 		
 	} else {
-		
+
 	}
 }, true);
 

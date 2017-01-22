@@ -110,6 +110,7 @@ function performAction() {
 		case MEASURING: calculate();
 			break;
 		case CALCULATE: document.getElementById("actionBtn").value = "Please wait";
+			// neutral color #f9f9f9
 			break;
 		default: alert("Invalid state: " + state);
 			break;
