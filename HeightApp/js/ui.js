@@ -19,10 +19,12 @@ const WELCOME3 = 7;
 $(document).ready(function() {
 	calibrateScreen();
 	
-	var isChrome = !!window.chrome && !!window.chrome.webstore;
+	
+	var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);	
 	if (!isChrome) {
 		self.location.href="#browserSupport";
 	}
+	
 	
 	welcome1();
 }); 
