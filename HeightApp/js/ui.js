@@ -83,14 +83,14 @@ function welcome2() {
 
 function welcome3() {
 	state = WELCOME3;
-	document.querySelector("#desc").innerHTML  = "To measure put your device at the lower or higher end of your wished height, then press start and move it to the other end. Then press stop.";
+	document.querySelector("#desc").innerHTML  = "To measure put your device at the lower or higher end of your wished height, press start, move it to the other end and press stop.";
 	document.querySelector("#actionBtn").innerHTML = "Continue";
 }
 
 
 function init() {
 	state = INIT;
-	document.querySelector("#desc").innerHTML  = "Now please hold still and press the button to calibrate your device.";
+	document.querySelector("#desc").innerHTML  = "Now please <b> hold still </b> and press the button to calibrate your device.";
 	document.querySelector("#actionBtn").innerHTML = "Calibrate";
 }
 
