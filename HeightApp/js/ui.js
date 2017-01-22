@@ -116,9 +116,6 @@ function performAction() {
 	}
 }
 
-
-
-
 /*
 
 	// vmousedown

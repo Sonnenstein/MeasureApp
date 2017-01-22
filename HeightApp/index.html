@@ -7,7 +7,7 @@
 	<meta name="author" content="Robin">
 	<meta name="description" content="An app to measure heights.">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -28,10 +28,10 @@
   </div>
 
   <div data-role="main" class="ui-content">
-		<div class="up2">
-			<p id="desc">I Welcome to my height measurement application!</p>
+		<div class="up">
+			<p class="description" id="desc">Welcome to our height measurement application!</p>
 		</div>
-		<p id="measuredHeight">0.0</p>
+		<p id="measuredHeight">Height: No measurement yet</p>
 		<div class="ui-grid-a">
 			<div class="ui-block-a">
 				<a href="#measurements" id="measureBtn" class="ui-btn ui-corner-all ui-shadow" onclick="switchToMeasurements()">Measurements</a><br>

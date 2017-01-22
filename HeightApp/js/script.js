@@ -82,7 +82,16 @@ window.addEventListener("deviceorientation", function(event) {
 	
 	document.querySelector("#mag_alpha").innerHTML = "Alpha: " + outAlpha + "°";
 	document.querySelector("#mag_beta").innerHTML = "Beta: " + outBeta + "°";
-	document.querySelector("#mag_gamma").innerHTML = "Gamma: " + outGamma + "°";	
+	document.querySelector("#mag_gamma").innerHTML = "Gamma: " + outGamma + "°";
+
+	var displacement = Math.sqrt(beta * beta + gamma * gamma);
+	if (displacement < 10.0) {
+		
+	} else if (displacement <  20.0) {
+		
+	} else {
+		
+	}
 }, true);
 
 
