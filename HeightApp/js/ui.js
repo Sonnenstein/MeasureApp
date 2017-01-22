@@ -17,12 +17,6 @@ const WELCOME3 = 7;
 
 
 $(document).ready(function() {
-	var isChrome = !!window.chrome && !!window.chrome.webstore;
-	if (isChrome) {
-		alert("Found Chrome!");
-	} else {
-		alert("Not Chrome!");
-	}
 	calibrateScreen();
 	welcome1();
 }); 
@@ -79,6 +73,13 @@ function welcome1() {
 	listMeasurments();
 	document.querySelector("#desc").innerHTML  = "Please hold your device at <b> any time </b> in an <b><span style='color:#90ee90;'>even</span></b> position!";
 	document.querySelector("#actionBtn").innerHTML = "Continue";
+	
+	var isChrome = !!window.chrome && !!window.chrome.webstore;
+	if (isChrome) {
+		document.querySelector("#actionBtn").innerHTML = "CHROME";
+	} else {
+		alert("Not Chrome!");
+	}
 }
 
 function welcome2() {
