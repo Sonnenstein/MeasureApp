@@ -78,7 +78,7 @@ function welcome1() {
 	if (isChrome) {
 		document.querySelector("#actionBtn").innerHTML = "CHROME";
 	} else {
-		alert("Not Chrome!");
+		document.querySelector("#actionBtn").innerHTML = "NOT CHROME";
 	}
 }
 
