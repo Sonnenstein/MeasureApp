@@ -86,11 +86,14 @@ window.addEventListener("deviceorientation", function(event) {
 
 	var displacement = Math.sqrt(beta * beta + gamma * gamma);
 	if (displacement < 10.0) {
-		
+		document.querySelector("#measuredHeight").innerHTML = "Even";
+		document.getElementById("measuredHeight").style.background-color: = "#90ee90";
 	} else if (displacement <  20.0) {
-		
+		document.querySelector("#measuredHeight").innerHTML = "Uneven";
+		document.getElementById("measuredHeight").style.background-color: = "yellow";
 	} else {
-
+		document.querySelector("#measuredHeight").innerHTML = "Uneven";
+		document.getElementById("measuredHeight").style.background-color: = "F75D59";
 	}
 }, true);
 
