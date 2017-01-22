@@ -77,13 +77,13 @@ function welcome1() {
 
 function welcome2() {
 	state = WELCOME2;
-	document.querySelector("#desc").innerHTML  = "You will be able to perform height measurements by either moving your device up or down.";
+	document.querySelector("#desc").innerHTML  = "You will be able to perform height measurements by <b> either </b> moving your device up <b> or </b> down.";
 	document.querySelector("#actionBtn").innerHTML = "Continue";
 }
 
 function welcome3() {
 	state = WELCOME3;
-	document.querySelector("#desc").innerHTML  = "To measure put your device at the top or button end of your wished height press start and move it to the other end.";
+	document.querySelector("#desc").innerHTML  = "To measure put your device at the lower or higher end of your wished height, then press start and move it to the other end.";
 	document.querySelector("#actionBtn").innerHTML = "Continue";
 }
 
@@ -103,7 +103,7 @@ function calibrate() {
 
 function ready() {
 	state = READY;
-	document.querySelector("#desc").innerHTML  = "The device is ready. Hold it at the starting point of your wished measurement.";	
+	document.querySelector("#desc").innerHTML  = "The device is ready. <b>Faster</b> measurements tend to be more acurate.";	
 	document.querySelector("#actionBtn").innerHTML = "Start";	
 }
 
