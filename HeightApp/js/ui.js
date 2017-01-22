@@ -83,7 +83,7 @@ function welcome2() {
 
 function welcome3() {
 	state = WELCOME3;
-	document.querySelector("#desc").innerHTML  = "To measure put your device at the lower or higher end of your wished height, then press start and move it to the other end.";
+	document.querySelector("#desc").innerHTML  = "To measure put your device at the lower or higher end of your wished height, then press start and move it to the other end. Then press stop.";
 	document.querySelector("#actionBtn").innerHTML = "Continue";
 }
 
