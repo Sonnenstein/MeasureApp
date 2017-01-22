@@ -98,10 +98,10 @@ function ready() {
 	document.querySelector("#desc").innerHTML  = "The device is now ready for a new measurement.";	
 	document.querySelector("#actionBtn").innerHTML = "Start";
 	
-	document.querySelector("#actionBtn").onmousedown = function() {
+	document.querySelector("#actionBtn").vmousedown = function() {
 		performAction();
 	};
-	document.querySelector("#actionBtn").onmouseup = function() {
+	document.querySelector("#actionBtn").vmouseup = function() {
 		performAction();
 	};
 	
@@ -119,8 +119,8 @@ function display() {
 	document.querySelector("#actionBtn").onclick = function() {
 		performAction();
 	}
-	document.querySelector("#actionBtn").onmousedown = function() {};
-	document.querySelector("#actionBtn").onmouseup = function() {};
+	document.querySelector("#actionBtn").vmousedown = function() {};
+	document.querySelector("#actionBtn").vmouseup = function() {};
 	
 	stopMeasurement();
 	calculateDistance();
