@@ -10,7 +10,7 @@ const INIT = 0;
 const CALIBRATE = 1;
 const READY = 2;
 const MEASURING = 3;
-const CALCULATE = 4;
+const DISPLAY = 4;
 const WELCOME1 = 5;
 const WELCOME2 = 6;
 
@@ -106,10 +106,12 @@ function measure() {
 	document.querySelector("#actionBtn").innerHTML = "Stop";
 }
 
-function calculate() {
-	state = CALCULATE;
+function display() {
+	state = DISPLAY;
 	stopMeasurement();
 	calculateDistance();
+	document.querySelector("#desc").innerHTML  = "Press button to prepare device for a new measurement.";	
+	document.querySelector("#actionBtn").innerHTML = "Prepare";
 }
 
 
@@ -125,12 +127,11 @@ function performAction() {
 			break;
 		case READY: measure();
 			break;
-		case MEASURING: calculate();
+		case MEASURING: display();
 			break;
-		case CALCULATE: document.getElementById("actionBtn").value = "Please wait";
-			// neutral color #f9f9f9
+		case DISPLAY: document.getElementById("actionBtn").value = "Please wait";
 			break;
-		default: alert("Invalid state: " + state);
+		default: alert("System is in an invalid state: " + state + ". Please restart application.");
 			break;
 	}
 }

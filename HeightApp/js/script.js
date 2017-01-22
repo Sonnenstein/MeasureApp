@@ -89,17 +89,19 @@ window.addEventListener("deviceorientation", function(event) {
 
 	displacement_tick = displacement_tick + 1;
 	displacement = displacement + Math.sqrt((beta * beta) + (gamma * gamma));
-	if (displacement_tick >= 5) {
-		displacement = displacement / 5.0;
-		if (displacement < 10.0) {
-			document.querySelector("#measuredHeight").innerHTML = "Even";
-			document.querySelector("#measuredHeight").style.backgroundColor  = "#90ee90"; // lightgreen
-		} else if (displacement <  20.0) {
-			document.querySelector("#measuredHeight").innerHTML = "Uneven";
-			document.querySelector("#measuredHeight").style.backgroundColor = "yellow";
-		} else {
-			document.querySelector("#measuredHeight").innerHTML = "Uneven";
-			document.querySelector("#measuredHeight").style.backgroundColor  = "#F75D59"; // red
+	if (displacement_tick >= 7) {
+		if (state != DISPLAY) {
+			displacement = displacement / 5.0;
+			if (displacement < 10.0) {
+				document.querySelector("#measuredHeight").innerHTML = "Even";
+				document.querySelector("#measuredHeight").style.backgroundColor  = "#90ee90"; // lightgreen
+			} else if (displacement <  20.0) {
+				document.querySelector("#measuredHeight").innerHTML = "Uneven";
+				document.querySelector("#measuredHeight").style.backgroundColor = "yellow";
+			} else {
+				document.querySelector("#measuredHeight").innerHTML = "Uneven";
+				document.querySelector("#measuredHeight").style.backgroundColor  = "#F75D59"; // red
+			}
 		}
 		displacement = 0.0;
 		displacement_tick = 0;
@@ -206,5 +208,6 @@ function calculateDistance() {
 	
 	measurementData.push(outDist);
 	document.querySelector("#measuredHeight").innerHTML = "Height: " + outDist + " m";
+	document.querySelector("#measuredHeight").style.backgroundColor  =  "#f9f9f9";
 	ready();
 }
